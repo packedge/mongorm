@@ -2,7 +2,9 @@
     "name": "packedge/mongorm",
     "description": "A MongoDB Implementation for Eloquent",
     "require": {
-        "league/monga": "dev-master"
+        "league/monga": "dev-master",
+        "illuminate/support": "~5.1@dev",
+        "illuminate/container": "~5.1@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.7@dev",
@@ -12,6 +14,11 @@
         "psr-4": {
             "Packedge\\Mongorm\\": "src"
         }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ]
     },
     "license": "MIT",
     "authors": [

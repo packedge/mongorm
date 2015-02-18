@@ -1,14 +1,54 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: ashleyclarke
- * Date: 18/02/15
- * Time: 20:29
- */
+<?php namespace Packedge\Mongorm;
 
-namespace Packedge\Mongorm;
+use League\Monga;
+
+class Builder
+{
+    /**
+     * @var \League\Monga\Connection
+     */
+    protected $monga;
+
+    /**
+     * @var Model
+     */
+    protected $model;
+
+    public function __construct(Monga $monga = null)
+    {
+        $monga = $monga ?: new Monga;
+        $this->monga = $monga->connection();
+    }
+
+    /**
+     * @return \League\Monga\Database
+     */
+    protected function getDatabase()
+    {
+        // TODO: load from env/config
+        return $this->monga->database('example');
+    }
+
+    /**
+     * @return \League\Monga\Collection
+     */
+    protected function getCollection()
+    {
+        // TODO: calculate
+        return $this->getDatabase()->collection('users');
+    }
 
 
-class Builder {
+    /**
+     * @param Model $model
+     */
+    public function setModel(Model $model)
+    {
+        $this->model = $model;
+    }
 
-} 
+    public function first($columns = [])
+    {
+        return $this->getCollection()->find()->toArray();
+    }
+}
