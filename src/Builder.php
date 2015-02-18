@@ -34,8 +34,7 @@ class Builder
      */
     protected function getCollection()
     {
-        // TODO: calculate
-        return $this->getDatabase()->collection('users');
+        return $this->getDatabase()->collection($this->model->getCollectionName());
     }
 
 
