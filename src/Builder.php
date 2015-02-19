@@ -5,6 +5,11 @@ use League\Monga;
 class Builder
 {
     /**
+     * @var array
+     */
+    protected $query;
+
+    /**
      * @var \League\Monga\Connection
      */
     protected $monga;
@@ -48,6 +53,8 @@ class Builder
 
     public function first($columns = [])
     {
-        return $this->getCollection()->find()->toArray();
+        $result = $this->getCollection()->find($this->query, $columns)->limit(1)->toArray();
+
+        return count($result) === 0 ? null : $result;
     }
 }
