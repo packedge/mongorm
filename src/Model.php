@@ -178,7 +178,7 @@ abstract class Model implements ArrayAccess
     {
         $this->$offset = $value;
     }
-    
+
     /**
      * Unset the value for a given offset.
      *
