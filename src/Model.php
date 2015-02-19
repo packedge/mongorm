@@ -76,6 +76,11 @@ abstract class Model
         // TODO: will need to check for method existing for relationships
     }
 
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
     public function setAttribute($key, $value)
     {
         // TODO: check for mutator method
