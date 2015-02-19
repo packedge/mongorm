@@ -82,18 +82,60 @@ abstract class Model implements ArrayAccess
      */
     public function getAttribute($key)
     {
-        // TODO: check for mutator method
+        // First we will check for the presence of a mutator for
+        // the get operation which simply lets the developers
+        // tweak the attribute as it is get on the model.
+        if($this->hasGetMutator($key))
+        {
+            $value = $this->getAttributeFromArray($key);
+
+            return $this->mutateAttribute($key, $value);
+        }
 
         // TODO: handle dates
 
         // TODO: handle casts/datatypes
 
-        if(array_key_exists($key, $this->attributes))
+        return $this->getAttributeFromArray($key);
+
+        // TODO: will need to check for method existing for relationships
+    }
+
+    /**
+     * Get an attribute from the $attributes array.
+     *
+     * @param  string  $key
+     * @return mixed
+     */
+    protected function getAttributeFromArray($key)
+    {
+        if (array_key_exists($key, $this->attributes))
         {
             return $this->attributes[$key];
         }
+    }
 
-        // TODO: will need to check for method existing for relationships
+    /**
+     * Determine if a get mutator exists for an attribute.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public function hasGetMutator($key)
+    {
+        return method_exists($this, 'get' . studly_case($key) . 'Attribute');
+    }
+
+    /**
+     * Get the value of an attribute using its mutator.
+     *
+     * @param  string  $key
+     * @param  mixed   $value
+     * @return mixed
+     */
+    protected function mutateAttribute($key, $value)
+    {
+        return $this->{'get'.studly_case($key).'Attribute'}($value);
     }
 
     /**
@@ -114,13 +156,32 @@ abstract class Model implements ArrayAccess
      */
     public function setAttribute($key, $value)
     {
-        // TODO: check for mutator method
+        // First we will check for the presence of a mutator for
+        // the set operation which simply lets the developers
+        // tweak the attribute as it is set on the model.
+        if($this->hasSetMutator($key))
+        {
+            $method = 'set'.studly_case($key).'Attribute';
+
+            return $this->{$method}($value);
+        }
 
         // TODO: handle dates
 
         // TODO: handle casts/datatypes
 
         $this->attributes[$key] = $value;
+    }
+
+    /**
+     * Determine if a set mutator exists for an attribute.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public function hasSetMutator($key)
+    {
+        return method_exists($this, 'set' . studly_case($key) . 'Attribute');
     }
 
     /**

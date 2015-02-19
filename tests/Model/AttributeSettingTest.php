@@ -2,18 +2,24 @@
 
 use Packedge\Mongorm\Model;
 
-class Kiwi extends Model {}
+class Dog extends Model
+{
+    public function setAgeAttribute($value)
+    {
+        $this->attributes['age'] = $value * 7;
+    }
+}
 
 class AttributeSettingTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Kiwi
+     * @var Dog
      */
     protected $model;
 
     public function setUp()
     {
-        $this->model = new Kiwi;
+        $this->model = new Dog;
     }
 
     /** @test */
@@ -27,9 +33,9 @@ class AttributeSettingTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_can_set_an_attribute_value_via_magic_methods()
     {
-        $this->model->age = 27;
-        $this->assertArrayHasKey('age', $this->model->getAttributes());
-        $this->assertSame(27, $this->model->getAttributes()['age']);
+        $this->model->legs = 4;
+        $this->assertArrayHasKey('legs', $this->model->getAttributes());
+        $this->assertSame(4, $this->model->getAttributes()['legs']);
     }
 
     /** @test */
@@ -38,6 +44,20 @@ class AttributeSettingTest extends \PHPUnit_Framework_TestCase
         $this->model['gender'] = 'Male';
         $this->assertArrayHasKey('gender', $this->model->getAttributes());
         $this->assertSame('Male', $this->model->getAttributes()['gender']);
+    }
+
+    /** @test */
+    public function it_detects_if_it_has_a_set_mutator()
+    {
+        $this->assertTrue($this->model->hasSetMutator('age'));
+        $this->assertFalse($this->model->hasSetMutator('name'));
+    }
+
+    /** @test */
+    public function it_can_mutate_a_value_when_being_set()
+    {
+        $this->model->age = 3;
+        $this->assertSame(21, $this->model->getAttributes()['age']);
     }
 }
  
