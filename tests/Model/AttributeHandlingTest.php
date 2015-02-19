@@ -32,7 +32,13 @@ class AttributeHandlingTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(27, $this->model->getAttributes()['age']);
     }
 
-    // TODO: set via array access
+    /** @test */
+    public function it_can_set_an_attribute_like_an_array()
+    {
+        $this->model['gender'] = 'Male';
+        $this->assertArrayHasKey('gender', $this->model->getAttributes());
+        $this->assertSame('Male', $this->model->getAttributes()['gender']);
+    }
 
     /** @test */
     public function it_can_get_an_attribute_value()
@@ -48,14 +54,19 @@ class AttributeHandlingTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(22, $this->model->age);
     }
 
-    // TODO: get via array access
+    /** @test */
+    public function it_can_get_an_attribute_like_an_array()
+    {
+        $this->model->setAttribute('favorite_fruit', 'Pineapple');
+        $this->assertSame('Pineapple', $this->model['favorite_fruit']);
+    }
 
     /** @test */
     public function it_returns_null_for_non_existent_attribute()
     {
         $this->assertNull($this->model->getAttribute('eye_colour'));
         $this->assertNull($this->model->eye_colour);
-        // TODO: get via array access
+        $this->assertNull($this->model['eye_colour']);
     }
 }
  
