@@ -2,18 +2,24 @@
 
 use Packedge\Mongorm\Model;
 
-class Pear extends Model {}
+class Cat extends Model
+{
+    public function getAgeAttribute($value)
+    {
+        return $value / 10;
+    }
+}
 
-class AttributeGettinhTest extends \PHPUnit_Framework_TestCase
+class AttributeGettingTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Kiwi
+     * @var Cat
      */
     protected $model;
 
     public function setUp()
     {
-        $this->model = new Kiwi;
+        $this->model = new Cat;
     }
 
     /** @test */
@@ -26,8 +32,8 @@ class AttributeGettinhTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_can_get_an_attribute_via_magic_methods()
     {
-        $this->model->setAttribute('age', 22);
-        $this->assertSame(22, $this->model->age);
+        $this->model->setAttribute('legs', 4);
+        $this->assertSame(4, $this->model->legs);
     }
 
     /** @test */
@@ -43,6 +49,20 @@ class AttributeGettinhTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->model->getAttribute('eye_colour'));
         $this->assertNull($this->model->eye_colour);
         $this->assertNull($this->model['eye_colour']);
+    }
+
+    /** @test */
+    public function it_detects_if_it_has_a_get_mutator()
+    {
+        $this->assertTrue($this->model->hasGetMutator('age'));
+        $this->assertFalse($this->model->hasGetMutator('name'));
+    }
+
+    /** @test */
+    public function it_can_mutate_a_value_when_being_gotten()
+    {
+        $this->model->age = 30;
+        $this->assertSame(3, $this->model->age);
     }
 }
  
