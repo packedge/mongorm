@@ -9,8 +9,7 @@ namespace Fruits {
 }
 
 
-namespace {
-
+namespace Model{
     use Fruits\Banana;
     use Fruits\RedGrape;
     use Packedge\Mongorm\Model;
@@ -25,7 +24,7 @@ namespace {
     }
 
 
-    class ModelTest extends \TestCase
+    class CollectionNamingTest extends \PHPUnit_Framework_TestCase
     {
         /** @test */
         public function it_allows_you_to_set_the_collection_name()
@@ -56,3 +55,4 @@ namespace {
         }
     }
 }
+ 
