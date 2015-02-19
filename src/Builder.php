@@ -42,13 +42,20 @@ class Builder
         return $this->getDatabase()->collection($this->model->getCollectionName());
     }
 
-
     /**
      * @param Model $model
      */
     public function setModel(Model $model)
     {
         $this->model = $model;
+    }
+
+    /**
+     * @return Model
+     */
+    public function getModel()
+    {
+        return $this->model;
     }
 
     public function first($columns = [])
