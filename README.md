@@ -62,6 +62,7 @@ This package is still in development.
 - [ ] Auth driver
 - [ ] usable where "database" driver is use. (e.g. cache etc)
 - [ ] console overrides: e.g. make:model to make model work with our implementation
+- [ ] Migration support (for building indexes)
 
 ##Maintainers
 
