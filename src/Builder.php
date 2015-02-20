@@ -2,6 +2,10 @@
 
 use League\Monga;
 
+/**
+ * Class Builder
+ * @package Packedge\Mongorm
+ */
 class Builder
 {
     /**
@@ -19,6 +23,9 @@ class Builder
      */
     protected $model;
 
+    /**
+     * @param Monga $monga
+     */
     public function __construct(Monga $monga = null)
     {
         $monga = $monga ?: new Monga;
@@ -58,10 +65,23 @@ class Builder
         return $this->model;
     }
 
+    /**
+     * @param array $columns
+     * @return null
+     */
     public function first($columns = [])
     {
         $result = $this->getCollection()->find($this->query, $columns)->limit(1)->toArray();
 
         return count($result) === 0 ? null : $result;
+    }
+
+    /**
+     * @param array $query
+     */
+    public function where(array $query)
+    {
+        // TODO: proper query builder
+        $this->query = $query;
     }
 }
