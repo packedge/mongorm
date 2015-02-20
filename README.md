@@ -57,6 +57,12 @@ This package is still in development.
 - [ ] many to many polymorphic
 - [ ] eager loading
 
+####Extra Features
+- [ ] Laravel validator support
+- [ ] Auth driver
+- [ ] usable where "database" driver is use. (e.g. cache etc)
+- [ ] console overrides: e.g. make:model to make model work with our implementation
+
 ##Maintainers
 
 This package is maintained by:
