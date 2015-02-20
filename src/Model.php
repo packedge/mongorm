@@ -8,6 +8,13 @@ use ReflectionClass;
 abstract class Model implements ArrayAccess
 {
     /**
+     * The primary key for the model.
+     *
+     * @var string
+     */
+    protected $primaryKey = '_id';
+
+    /**
      * The collection associated with the model.
      *
      * @var String
@@ -59,6 +66,27 @@ abstract class Model implements ArrayAccess
                 )
             )
         );
+    }
+
+    /**
+     * Get the primary key for the model.
+     *
+     * @return string
+     */
+    public function getKeyName()
+    {
+        return $this->primaryKey;
+    }
+
+    /**
+     * Set the primary key for the model.
+     *
+     * @param  string  $key
+     * @return void
+     */
+    public function setKeyName($key)
+    {
+        $this->primaryKey = $key;
     }
 
     /**
