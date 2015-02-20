@@ -12,7 +12,7 @@ This package is still in development.
 - [ ] set connections in the config
 - [ ] change connection e.g. Model::on('something')->find()
 - [x] accessors & mutator methods
-- [ ] override primary key (default to '_id')
+- [x] override primary key (default to '_id')
 - [ ] return dates as Carbon instances, save as mongodates
 - [ ] support casting data
 - [ ] mass assignemnt protection
