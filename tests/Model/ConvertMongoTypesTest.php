@@ -81,11 +81,22 @@ class ConvertMongoTypesTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function it_converts_mongo_date_to_php_date()
     {
-        $epoc = strtotime("2015-02-21 00:00:00");
+        $epoc = strtotime("2015-02-21 14:22:13");
         $date = new MongoDate($epoc);
 
         $result = $this->model->convertMongoDate($date);
         $this->assertEquals(new DateTime($epoc), $result);
+    }
+
+    /** @test */
+    public function it_converts_date_time_into_mongo_date()
+    {
+        $strDate = "2015-02-24 16:37:05";
+        $epoc = strtotime($strDate);
+        $date = new DateTime($strDate);
+
+        $result = $this->model->convertToMongoDate($date);
+        $this->assertEquals(new MongoDate($epoc), $result);
     }
 
     /** @test */

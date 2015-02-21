@@ -99,6 +99,11 @@ trait ConvertableTrait
         return new DateTime($mongoDate->sec);
     }
 
+    public function convertToMongoDate(DateTime $dateTime)
+    {
+        return new MongoDate($dateTime->getTimestamp());
+    }
+
     /**
      * Convert a MongoRegex into a string.
      *
