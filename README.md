@@ -21,7 +21,7 @@ This package is still in development.
 - [ ] Return dates as Carbon instances
 - [ ] Save as mongodates
 - [ ] Support casting data
-- [ ] Cast any mongo types to PHP types.
+- [x] Cast any mongo types to PHP types.
 - [ ] Mass assignemnt protection
 - [ ] Soft deletes
 - [ ] Timestamps
