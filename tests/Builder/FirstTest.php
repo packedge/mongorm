@@ -1,16 +1,8 @@
 <?php namespace Builder;
 
-use Exception;
-use InvalidArgumentException;
 use Mockery as m;
 use Packedge\Mongorm\Builder;
 
-/**
- * Created by PhpStorm.
- * User: ashleyclarke
- * Date: 19/02/15
- * Time: 21:14
- */
 class BuilderFirstTest extends \PHPUnit_Framework_TestCase
 {
 
