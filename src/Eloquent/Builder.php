@@ -95,27 +95,33 @@ class Builder
      * @param string $column
      * @param string|null $operator
      * @param string|null $value
+     * @return $this
      */
     public function where($column, $operator = null, $value = null)
     {
         $part = $this->queryBuilder->parse($column, $operator, $value);
         $this->query = array_merge($this->query, $part);
+
+        return $this;
     }
 
     /**
      * @param array $columns
+     * @return $this|void
      */
     public function select(array $columns)
     {
         if (empty($columns) || $columns[0] === '*') {
             $this->columns = [];
 
-            return;
+            return $this;
         }
 
         foreach ($columns as $column) {
             $this->columns[$column] = true;
         }
+
+        return $this;
     }
 
     /**
