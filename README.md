@@ -12,24 +12,26 @@ This package is still in development.
 
 ####Standard Features
 - [x] Detect collection/table names
-- [x] dynamically access db attributes
-- [x] access attributes on the model like an array
-- [ ] set connections in the config
-- [ ] change connection e.g. Model::on('something')->find()
-- [x] accessors & mutator methods
-- [x] override primary key (default to '_id')
-- [ ] return dates as Carbon instances, save as mongodates
-- [ ] support casting data
-- [ ] mass assignemnt protection
-- [ ] soft deletes
-- [ ] timestamps
-- [ ] query scopes
-- [ ] dynamic scopes
-- [ ] model events
-- [ ] model observers
-- [ ] convert to array, json
-- [ ] hiding attributes from array, json output
-- [ ] apending attributes to array, json
+- [x] Dynamically access db attributes
+- [x] Access attributes on the model like an array
+- [ ] Set connections in the config
+- [ ] Change connection e.g. Model::on('something')->find()
+- [x] Accessors & mutator methods
+- [x] Override primary key (default to '_id')
+- [ ] Return dates as Carbon instances
+- [ ] Save as mongodates
+- [ ] Support casting data
+- [ ] Cast any mongo types to PHP types.
+- [ ] Mass assignemnt protection
+- [ ] Soft deletes
+- [ ] Timestamps
+- [ ] Query scopes
+- [ ] Dynamic scopes
+- [ ] Model events
+- [ ] Model observers
+- [ ] Convert to array, json
+- [ ] Hiding attributes from array, json output
+- [ ] Apending attributes to array, json
 
 ####Model Methods
 - [ ] Model::all()
@@ -65,8 +67,8 @@ This package is still in development.
 ####Extra Features
 - [ ] Laravel validator support
 - [ ] Auth driver
-- [ ] usable where "database" driver is use. (e.g. cache etc)
-- [ ] console overrides: e.g. make:model to make model work with our implementation
+- [ ] Usable where "database" driver is use. (e.g. cache etc)
+- [ ] Console overrides: e.g. make:model to make model work with our implementation
 - [ ] Migration support (for building indexes)
 
 ##Maintainers
