@@ -17,18 +17,13 @@ class BuilderFirstTest extends \PHPUnit_Framework_TestCase
         $connection = m::mock('\League\Monga\Connection');
         $database = m::mock('\League\Monga\Database');
         $collection = m::mock('\League\Monga\Collection');
-        $cursor = m::mock('\League\Monga\Cursor');
         $data = [
             'first' => 'Fred',
             'email' => 'fred@gmail.com'
         ];
 
-        $cursor->shouldReceive('toArray')
+        $collection->shouldReceive('findOne', [[], []])
             ->andReturn($data);
-        $cursor->shouldReceive('limit', [1])
-            ->andReturn($cursor);
-        $collection->shouldReceive('find', [[], []])
-            ->andReturn($cursor);
         $database->shouldReceive('collection', ['users'])
             ->andReturn($collection);
         $connection->shouldReceive('database', ['example'])
