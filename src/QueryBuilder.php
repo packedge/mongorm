@@ -21,8 +21,8 @@ class QueryBuilder
             return [$column => ['$exists' => true]];
         }
 
-        if (is_null($operator)) {
-            return [$column => $value];
+        if (is_null($value)) {
+            return [$column => $operator];
         }
 
         return $this->parseOperator($column, $operator, $value);
@@ -40,7 +40,8 @@ class QueryBuilder
         switch ($operator) {
             case '=':
                 return [$column => $value];
-            case '!=' || '<>':
+            case '!=':
+            case '<>':
                 return [$column => ['$not' => $value]];
             case '>':
                 return [$column => ['$gt' => $value]];
