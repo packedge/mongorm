@@ -1,7 +1,7 @@
 <?php namespace QueryBuilder;
 
 use Mockery as m;
-use Packedge\Mongorm\QueryBuilder;
+use Packedge\Mongorm\Query\Builder as QueryBuilder;
 
 class ParseTest extends \PHPUnit_Framework_TestCase
 {
@@ -118,7 +118,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \Packedge\Mongorm\InvalidOperatorException
+     * @expectedException \Packedge\Mongorm\Query\InvalidOperatorException
      */
     public function it_specifies_invalid_operator()
     {

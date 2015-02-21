@@ -1,7 +1,7 @@
-<?php namespace Packedge\Mongorm;
+<?php namespace Packedge\Mongorm\Eloquent;
 
 use League\Monga;
-
+use Packedge\Mongorm\Query\Builder as QueryBuilder;
 /**
  * Class Builder
  * @package Packedge\Mongorm

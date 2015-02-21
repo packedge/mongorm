@@ -1,7 +1,7 @@
 <?php namespace Builder;
 
 use Mockery as m;
-use Packedge\Mongorm\Builder;
+use Packedge\Mongorm\Eloquent\Builder;
 
 class BuilderFirstTest extends \PHPUnit_Framework_TestCase
 {
@@ -38,7 +38,7 @@ class BuilderFirstTest extends \PHPUnit_Framework_TestCase
 
         $this->builder = new Builder($monga);
 
-        $model = m::mock('\Packedge\Mongorm\Model');
+        $model = m::mock('\Packedge\Mongorm\Eloquent\Model');
         $model->shouldReceive('getCollectionName')
             ->andReturn('users');
         $this->builder->setModel($model);

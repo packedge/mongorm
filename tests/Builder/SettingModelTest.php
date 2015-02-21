@@ -1,7 +1,7 @@
 <?php namespace Builder;
 
 use Mockery as m;
-use Packedge\Mongorm\Builder;
+use Packedge\Mongorm\Eloquent\Builder;
 
 class SettingModelTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,11 +27,11 @@ class SettingModelTest extends \PHPUnit_Framework_TestCase
      */
     public function it_sets_the_model()
     {
-        $model = m::mock('\Packedge\Mongorm\Model');
+        $model = m::mock('\Packedge\Mongorm\Eloquent\Model');
 
         $this->builder->setModel($model);
 
-        $this->assertInstanceOf('\Packedge\Mongorm\Model', $this->builder->getModel());
+        $this->assertInstanceOf('\Packedge\Mongorm\Eloquent\Model', $this->builder->getModel());
     }
 }
  

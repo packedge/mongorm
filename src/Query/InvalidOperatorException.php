@@ -1,4 +1,4 @@
-<?php namespace Packedge\Mongorm;
+<?php namespace Packedge\Mongorm\Query;
 
 class InvalidOperatorException extends \LogicException
 {

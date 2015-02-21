@@ -1,4 +1,4 @@
-<?php namespace Packedge\Mongorm\Traits;
+<?php namespace Packedge\Mongorm\Eloquent;
 
 
 trait MutableTrait

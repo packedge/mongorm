@@ -1,10 +1,10 @@
-<?php namespace Packedge\Mongorm;
+<?php namespace Packedge\Mongorm\Query;
 
 /**
  * Class QueryBuilder
  * @package Packedge\Mongorm
  */
-class QueryBuilder
+class Builder
 {
 
     /**
