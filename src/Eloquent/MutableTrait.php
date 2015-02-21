@@ -3,6 +3,7 @@
 
 trait MutableTrait
 {
+    use ConvertableTrait;
     /**
      * The models attributes.
      *
@@ -25,19 +26,29 @@ trait MutableTrait
      */
     public function getAttribute($key)
     {
-        // First we will check for the presence of a mutator for
-        // the get operation which simply lets the developers
-        // tweak the attribute as it is get on the model.
-        if($this->hasGetMutator($key))
-        {
-            $value = $this->getAttributeFromArray($key);
+        // Fetch the value for the key.
+        $value = $this->getAttributeFromArray($key);
 
-            return $this->mutateAttribute($key, $value);
+        // TODO: handle mongo types
+        if($this->isMongoType($value))
+        {
+            // TODO: convert to standard PHP types
+            $newValue = $this->convertMongoType($value);
+            $this->setAttribute($key, $newValue);
         }
+
 
         // TODO: handle dates
 
         // TODO: handle casts/datatypes
+
+        // Next we will check for the presence of a mutator for
+        // the get operation which simply lets the developers
+        // tweak the attribute as it is get on the model.
+        if($this->hasGetMutator($key))
+        {
+            return $this->mutateAttribute($key, $value);
+        }
 
         return $this->getAttributeFromArray($key);
 
