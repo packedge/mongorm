@@ -25,6 +25,20 @@ abstract class Model implements ArrayAccess
     protected $collection;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [];
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = ['*'];
+
+    /**
      * Returns a new instance of the Builder.
      *
      * @return Builder
@@ -76,6 +90,27 @@ abstract class Model implements ArrayAccess
     public function setKeyName($key)
     {
         $this->primaryKey = $key;
+    }
+
+    /**
+     * Determine if the model is totally guarded.
+     *
+     * @return bool
+     */
+    public function totallyGuarded()
+    {
+        return count($this->fillable) == 0 && $this->guarded == ['*'];
+    }
+
+    public function fill(array $attributes)
+    {
+        $totallyGuarded = $this->totallyGuarded();
+        
+        // TODO: check if its fillable
+            // TODO: set attribute
+        // TODO: else throw exception
+
+        // TODO: return $this for chaining
     }
 
     /**
