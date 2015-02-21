@@ -100,7 +100,7 @@ class Builder
             $this->select($columns);
         }
 
-        return $this->getCollection()->findOne($this->query, $columns);
+        return $this->getCollection()->findOne($this->query, $this->columns);
     }
 
     /**
