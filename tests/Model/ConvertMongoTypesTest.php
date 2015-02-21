@@ -35,6 +35,35 @@ class ConvertMongoTypesTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_converts_a_string_to_a_mongo_id()
+    {
+        $id = '123456789012345678901234';
+        $result = $this->model->convertToMongoId($id);
+        $this->assertInstanceOf('MongoId', $result);
+        $this->assertEquals($id, (string) $result);
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     */
+    public function it_throws_exception_if_non_string_id_used()
+    {
+        $id = 123456789012345678901234;
+        $this->model->convertToMongoId($id);
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     */
+    public function it_throws_exception_if_invalid_length()
+    {
+        $id = "123";
+        $this->model->convertToMongoId($id);
+    }
+
+    /** @test */
     public function it_converts_mongo_code_to_string()
     {
         $mc = new MongoCode('function() { return this.x < 5; }');

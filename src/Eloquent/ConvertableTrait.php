@@ -2,6 +2,7 @@
 
 
 use DateTime;
+use InvalidArgumentException;
 use MongoCode;
 use MongoDate;
 use MongoId;
@@ -62,6 +63,18 @@ trait ConvertableTrait
     public function convertMongoId(MongoId $mongoId)
     {
         return (string) $mongoId;
+    }
+
+    /**
+     * Convert a string into a MongoId.
+     *
+     * @param $id
+     * @return MongoId
+     */
+    public function convertToMongoId($id)
+    {
+        if(!is_string($id) || strlen($id) != 24) throw new InvalidArgumentException;
+        return new MongoId($id);
     }
 
     /**
