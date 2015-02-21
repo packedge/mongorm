@@ -120,6 +120,23 @@ class ConvertMongoTypesTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @test */
+    public function it_converts_int_into_mongo_int_32()
+    {
+        $result = $this->model->convertToMongoInt32(187);
+        $this->assertInstanceOf('MongoInt32', $result);
+        $this->assertEquals(new MongoInt32(187), $result);
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     */
+    public function it_throws_exception_if_non_int_used_to_convert_to_int_32()
+    {
+        $this->model->convertToMongoInt32("abc");
+    }
+
+    /** @test */
     public function it_converts_mongo_int_64_into_an_int()
     {
         $value = new MongoInt64('123');
@@ -127,6 +144,23 @@ class ConvertMongoTypesTest extends \PHPUnit_Framework_TestCase
         $result = $this->model->convertMongoInt64($value);
         $this->assertInternalType('int', $result);
         $this->assertEquals(123, $result);
+    }
+
+    /** @test */
+    public function it_converts_int_into_mongo_int_64()
+    {
+        $result = $this->model->convertToMongoInt64(204);
+        $this->assertInstanceOf('MongoInt64', $result);
+        $this->assertEquals(new MongoInt64(204), $result);
+    }
+
+    /**
+     * @test
+     * @expectedException \InvalidArgumentException
+     */
+    public function it_throws_exception_if_non_int_used_to_convert_to_int_64()
+    {
+        $this->model->convertToMongoInt64("abc");
     }
 }
  

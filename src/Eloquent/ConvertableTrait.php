@@ -134,6 +134,18 @@ trait ConvertableTrait
     }
 
     /**
+     * Convert int into a MongoInt32.
+     *
+     * @param int $value
+     * @return MongoInt32
+     */
+    public function convertToMongoInt32($value)
+    {
+        if(!is_int($value)) throw new InvalidArgumentException;
+        return new MongoInt32($value);
+    }
+
+    /**
      * Convert a MongoInt64 into a int.
      *
      * @param MongoInt64 $mongoInt64
@@ -143,5 +155,17 @@ trait ConvertableTrait
     {
         $str =  (string) $mongoInt64;
         return (int) $str;
+    }
+
+    /**
+     * Convert int into a MongoInt64.
+     *
+     * @param int $value
+     * @return MongoInt64
+     */
+    public function convertToMongoInt64($value)
+    {
+        if(!is_int($value)) throw new InvalidArgumentException;
+        return new MongoInt64($value);
     }
 } 
