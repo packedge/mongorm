@@ -1,6 +1,8 @@
 <?php namespace Model;
 
+use DateTime;
 use MongoCode;
+use MongoDate;
 use MongoId;
 use Packedge\Mongorm\Eloquent\ConvertableTrait;
 
@@ -43,6 +45,16 @@ class ConvertMongoTypesTest extends \PHPUnit_Framework_TestCase
         $result = $this->model->convertMongoType($mc);
         $this->assertInternalType('string', $result);
         $this->assertSame('function() { return this.x < y; }', $result);
+    }
+
+    /** @test */
+    public function it_converts_mongo_date_to_php_date()
+    {
+        $epoc = strtotime("2015-02-21 00:00:00");
+        $date = new MongoDate($epoc);
+
+        $result = $this->model->convertMongoDate($date);
+        $this->assertEquals(new DateTime($epoc), $result);
     }
 }
  

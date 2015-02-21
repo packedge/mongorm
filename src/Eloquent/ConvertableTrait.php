@@ -1,8 +1,18 @@
 <?php namespace Packedge\Mongorm\Eloquent;
 
 
+use DateTime;
+use MongoBinData;
 use MongoCode;
+use MongoDate;
+use MongoDBRef;
 use MongoId;
+use MongoInt32;
+use MongoInt64;
+use MongoMaxKey;
+use MongoMinKey;
+use MongoRegex;
+use MongoTimestamp;
 
 trait ConvertableTrait
 {
@@ -44,7 +54,7 @@ trait ConvertableTrait
 
     public function convertMongoDate(MongoDate $mongoDate)
     {
-        // TODO: implement
+        return new DateTime($mongoDate->sec);
     }
 
     public function convertMongoRegex(MongoRegex $mongoRegex)
