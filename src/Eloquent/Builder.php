@@ -20,6 +20,11 @@ class Builder
     protected $columns = [];
 
     /**
+     * @var int
+     */
+    protected $limit = -1;
+
+    /**
      * @var QueryBuilder
      */
     protected $queryBuilder;
@@ -107,7 +112,7 @@ class Builder
 
     /**
      * @param array $columns
-     * @return $this|void
+     * @return $this
      */
     public function select(array $columns)
     {
@@ -129,7 +134,24 @@ class Builder
      */
     public function get()
     {
-        // TODO: use limit, pagination etc.
-        return $this->getCollection()->find($this->query, $this->columns)->toArray();
+        // TODO: use pagination etc.
+        $results = $this->getCollection()->find($this->query, $this->columns);
+
+        if ($this->limit !== -1) {
+            $results->limit($this->limit);
+        }
+
+        return $results->toArray();
+    }
+
+    /**
+     * @param int $amount
+     * @return $this
+     */
+    public function take($amount)
+    {
+        $this->limit = $amount;
+
+        return $this;
     }
 }
