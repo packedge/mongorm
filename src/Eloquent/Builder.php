@@ -2,6 +2,7 @@
 
 use League\Monga;
 use Packedge\Mongorm\Query\Builder as QueryBuilder;
+
 /**
  * Class Builder
  * @package Packedge\Mongorm
@@ -12,6 +13,11 @@ class Builder
      * @var array
      */
     protected $query = [];
+
+    /**
+     * @var array
+     */
+    protected $columns = [];
 
     /**
      * @var QueryBuilder
@@ -76,13 +82,13 @@ class Builder
 
     /**
      * @param array $columns
-     * @return null
+     * @return array|null
      */
     public function first($columns = [])
     {
-        $result = $this->getCollection()->find($this->query, $columns)->limit(1)->toArray();
+        $columns = array_merge($this->columns, $columns);
 
-        return count($result) === 0 ? null : $result;
+        return $this->getCollection()->findOne($this->query, $columns);
     }
 
     /**
@@ -94,5 +100,30 @@ class Builder
     {
         $part = $this->queryBuilder->parse($column, $operator, $value);
         $this->query = array_merge($this->query, $part);
+    }
+
+    /**
+     * @param array $columns
+     */
+    public function select(array $columns)
+    {
+        if (empty($columns) || $columns[0] === '*') {
+            $this->columns = [];
+
+            return;
+        }
+
+        foreach ($columns as $column) {
+            $this->columns[$column] = true;
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function get()
+    {
+        // TODO: use limit, pagination etc.
+        return $this->getCollection()->find($this->query, $this->columns)->toArray();
     }
 }
