@@ -4,6 +4,8 @@ use DateTime;
 use MongoCode;
 use MongoDate;
 use MongoId;
+use MongoInt32;
+use MongoInt64;
 use Packedge\Mongorm\Eloquent\ConvertableTrait;
 
 class Sample
@@ -55,6 +57,36 @@ class ConvertMongoTypesTest extends \PHPUnit_Framework_TestCase
 
         $result = $this->model->convertMongoDate($date);
         $this->assertEquals(new DateTime($epoc), $result);
+    }
+
+    /** @test */
+    public function it_converts_mongo_regex_into_a_string()
+    {
+        $regex = "/^a/i";
+        $reg = new \MongoRegex($regex);
+
+        $result = $this->model->convertMongoRegex($reg);
+        $this->assertEquals($regex, $result);
+    }
+
+    /** @test */
+    public function it_converts_mongo_int_32_into_an_int()
+    {
+        $value = new MongoInt32('123');
+
+        $result = $this->model->convertMongoInt32($value);
+        $this->assertInternalType('int', $result);
+        $this->assertEquals(123, $result);
+    }
+
+    /** @test */
+    public function it_converts_mongo_int_64_into_an_int()
+    {
+        $value = new MongoInt64('123');
+
+        $result = $this->model->convertMongoInt64($value);
+        $this->assertInternalType('int', $result);
+        $this->assertEquals(123, $result);
     }
 }
  

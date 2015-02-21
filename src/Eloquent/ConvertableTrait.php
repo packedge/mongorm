@@ -2,27 +2,32 @@
 
 
 use DateTime;
-use MongoBinData;
 use MongoCode;
 use MongoDate;
-use MongoDBRef;
 use MongoId;
 use MongoInt32;
 use MongoInt64;
-use MongoMaxKey;
-use MongoMinKey;
 use MongoRegex;
-use MongoTimestamp;
 
 trait ConvertableTrait
 {
+    /**
+     * List of available mongodb data types.
+     * Not supported: MongoBinData, MongoDBRef, MongoMinKey, MongoMaxKey, MongoTimeStamp
+     *
+     * @var array
+     */
     private $mongoTypes = [
         'MongoId', 'MongoCode', 'MongoDate',
-        'MongoRegex', 'MongoBinData', 'MongoInt32',
-        'MongoInt64', 'MongoDBRef', 'MongoMinKey',
-        'MongoMaxKey', 'MongoTimeStamp'
+        'MongoRegex', 'MongoInt32', 'MongoInt64'
     ];
 
+    /**
+     * Check if a given value is a mongo data type.
+     *
+     * @param $value
+     * @return bool
+     */
     public function isMongoType($value)
     {
         if(is_object($value))
@@ -32,6 +37,12 @@ trait ConvertableTrait
         return false;
     }
 
+    /**
+     * Convert a mongo data type, into a standard PHP type.
+     *
+     * @param $value
+     * @return mixed
+     */
     public function convertMongoType($value)
     {
         $type = get_class($value);
@@ -42,58 +53,71 @@ trait ConvertableTrait
         }
     }
 
+    /**
+     * Convert a MongoId into a string.
+     *
+     * @param MongoId $mongoId
+     * @return string
+     */
     public function convertMongoId(MongoId $mongoId)
     {
         return (string) $mongoId;
     }
 
+    /**
+     * Convert a MongoCode into a string.
+     *
+     * @param MongoCode $mongoCode
+     * @return string
+     */
     public function convertMongoCode(MongoCode $mongoCode)
     {
         return (string) $mongoCode;
     }
 
+    /**
+     * Convert a MongoDate into a DateTime.
+     *
+     * @param MongoDate $mongoDate
+     * @return DateTime
+     */
     public function convertMongoDate(MongoDate $mongoDate)
     {
         return new DateTime($mongoDate->sec);
     }
 
+    /**
+     * Convert a MongoRegex into a string.
+     *
+     * @param MongoRegex $mongoRegex
+     * @return string
+     */
     public function convertMongoRegex(MongoRegex $mongoRegex)
     {
-        // TODO: implement
+        return (string) $mongoRegex;
     }
 
-    public function convertMongoBinData(MongoBinData $mongoBinData)
-    {
-        // TODO: implement
-    }
-
+    /**
+     * Convert a MongoInt32 into a int.
+     *
+     * @param MongoInt32 $mongoInt32
+     * @return int
+     */
     public function convertMongoInt32(MongoInt32 $mongoInt32)
     {
-        // TODO: implement
+        $str =  (string) $mongoInt32;
+        return (int) $str;
     }
 
+    /**
+     * Convert a MongoInt64 into a int.
+     *
+     * @param MongoInt64 $mongoInt64
+     * @return int
+     */
     public function convertMongoInt64(MongoInt64 $mongoInt64)
     {
-        // TODO: implement
-    }
-
-    public function convertMongoDBRef(MongoDBRef $mongoDBRef)
-    {
-        // TODO: implement
-    }
-
-    public function convertMongoMinKey(MongoMinKey $mongoMinKey)
-    {
-        // TODO: implement
-    }
-
-    public function convertMongoMaxKey(MongoMaxKey $mongoMaxKey)
-    {
-        // TODO: implement
-    }
-
-    public function convertMongoTimestamp(MongoTimestamp $mongoTimestamp)
-    {
-        // TODO: implement
+        $str =  (string) $mongoInt64;
+        return (int) $str;
     }
 } 
