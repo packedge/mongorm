@@ -4,6 +4,10 @@ This package should allow you to work with Laravel's Eloquent ORM just like you 
 
 [![Build Status](https://img.shields.io/travis/packedge/mongorm.svg?branch=master&style=flat-square)](https://travis-ci.org/packedge/mongorm)
 
+[![Code Quality](https://img.shields.io/scrutinizer/g/packedge/mongorm.svg?branch=master&style=flat-square)](https://scrutinizer-ci.com/g/packedge/mongorm)
+
+[![Test Coverage](https://img.shields.io/scrutinizer/coverage/g/packedge/mongorm.svg?branch=master&style=flat-square)](https://scrutinizer-ci.com/g/packedge/mongorm)
+
 
 ##Package Development
 This package is still in development.
