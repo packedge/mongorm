@@ -3,7 +3,7 @@
 use Mockery as m;
 use Packedge\Mongorm\Eloquent\Builder;
 
-class BuilderFirstTest extends \PHPUnit_Framework_TestCase
+class FirstTest extends \PHPUnit_Framework_TestCase
 {
 
     /**

@@ -69,6 +69,11 @@ class Builder
         return $this->getDatabase()->collection($this->model->getCollectionName());
     }
 
+    protected function doQuery()
+    {
+        return $this->getCollection()->find($this->query, $this->columns);
+    }
+
     /**
      * @param Model $model
      */
@@ -135,7 +140,7 @@ class Builder
     public function get()
     {
         // TODO: use pagination etc.
-        $results = $this->getCollection()->find($this->query, $this->columns);
+        $results = $this->doQuery();
 
         if ($this->limit !== -1) {
             $results->limit($this->limit);
@@ -153,5 +158,10 @@ class Builder
         $this->limit = $amount;
 
         return $this;
+    }
+
+    public function count()
+    {
+        return $this->doQuery()->count();
     }
 }
