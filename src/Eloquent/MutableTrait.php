@@ -29,6 +29,13 @@ trait MutableTrait
     protected $dates = [];
 
     /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [];
+
+    /**
      * Get an attribute for the model.
      *
      * @param $key
@@ -71,15 +78,76 @@ trait MutableTrait
         return $value;
     }
 
-    public function hasCast()
+    /**
+     * Determine whether an attribute should be casted to a native type.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    protected function hasCast($key)
     {
-        // TODO: fix
+        return array_key_exists($key, $this->casts);
+    }
+
+    /**
+     * Determine whether a value is JSON castable for inbound manipulation.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    protected function isJsonCastable($key)
+    {
+        if ($this->hasCast($key))
+        {
+            $type = $this->getCastType($key);
+            return $type === 'array' || $type === 'json' || $type === 'object';
+        }
         return false;
     }
 
-    public function castAttribute($key, $value)
+    /**
+     * Get the type of cast for a model attribute.
+     *
+     * @param  string  $key
+     * @return string
+     */
+    protected function getCastType($key)
     {
-        
+        return trim(strtolower($this->casts[$key]));
+    }
+
+    /**
+     * Cast an attribute to a native PHP type.
+     *
+     * @param  string  $key
+     * @param  mixed   $value
+     * @return mixed
+     */
+    protected function castAttribute($key, $value)
+    {
+        if (is_null($value)) return $value;
+        switch ($this->getCastType($key))
+        {
+            case 'int':
+            case 'integer':
+                return (int) $value;
+            case 'real':
+            case 'float':
+            case 'double':
+                return (float) $value;
+            case 'string':
+                return (string) $value;
+            case 'bool':
+            case 'boolean':
+                return (bool) $value;
+            case 'object':
+                return json_decode($value);
+            case 'array':
+            case 'json':
+                return json_decode($value, true);
+            default:
+                return $value;
+        }
     }
 
     public function getAttributeValue($key)
