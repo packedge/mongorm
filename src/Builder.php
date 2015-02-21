@@ -11,7 +11,12 @@ class Builder
     /**
      * @var array
      */
-    protected $query;
+    protected $query = [];
+
+    /**
+     * @var QueryBuilder
+     */
+    protected $queryBuilder;
 
     /**
      * @var \League\Monga\Connection
@@ -25,11 +30,15 @@ class Builder
 
     /**
      * @param Monga $monga
+     * @param QueryBuilder $queryBuilder
      */
-    public function __construct(Monga $monga = null)
+    public function __construct(Monga $monga = null, QueryBuilder $queryBuilder = null)
     {
         $monga = $monga ?: new Monga;
         $this->monga = $monga->connection();
+
+        $queryBuilder = $queryBuilder ?: new QueryBuilder;
+        $this->queryBuilder = $queryBuilder;
     }
 
     /**
@@ -77,11 +86,13 @@ class Builder
     }
 
     /**
-     * @param array $query
+     * @param string $column
+     * @param string|null $operator
+     * @param string|null $value
      */
-    public function where(array $query)
+    public function where($column, $operator = null, $value = null)
     {
-        // TODO: proper query builder
-        $this->query = $query;
+        $part = $this->queryBuilder->parse($column, $operator, $value);
+        $this->query = array_merge($this->query, $part);
     }
 }
