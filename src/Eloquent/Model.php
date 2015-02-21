@@ -1,4 +1,4 @@
-<?php namespace Packedge\Mongorm;
+<?php namespace Packedge\Mongorm\Eloquent;
 
 
 use ArrayAccess;
@@ -105,7 +105,7 @@ abstract class Model implements ArrayAccess
     public function fill(array $attributes)
     {
         $totallyGuarded = $this->totallyGuarded();
-        
+
         // TODO: check if its fillable
             // TODO: set attribute
         // TODO: else throw exception

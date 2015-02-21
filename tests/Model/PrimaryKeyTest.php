@@ -1,6 +1,6 @@
 <?php namespace Model;
 
-use Packedge\Mongorm\Model;
+use Packedge\Mongorm\Eloquent\Model;
 
 class Kiwi extends Model {}
 class Banana extends Model {

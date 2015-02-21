@@ -1,7 +1,7 @@
 <?php
 
 namespace Fruits {
-    use Packedge\Mongorm\Model;
+    use Packedge\Mongorm\Eloquent\Model;
 
     class Banana extends Model {}
 
@@ -12,7 +12,7 @@ namespace Fruits {
 namespace Model{
     use Fruits\Banana;
     use Fruits\RedGrape;
-    use Packedge\Mongorm\Model;
+    use Packedge\Mongorm\Eloquent\Model;
 
     class Apple extends Model
     {
