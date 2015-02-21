@@ -1,6 +1,9 @@
 <?php namespace Packedge\Mongorm\Eloquent;
 
 
+use Carbon\Carbon;
+use DateTime;
+
 trait MutableTrait
 {
     use ConvertableTrait;
@@ -18,6 +21,12 @@ trait MutableTrait
      */
     protected $original = [];
 
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [];
 
     /**
      * Get an attribute for the model.
@@ -62,6 +71,17 @@ trait MutableTrait
         return $value;
     }
 
+    public function hasCast()
+    {
+        // TODO: fix
+        return false;
+    }
+
+    public function castAttribute($key, $value)
+    {
+        
+    }
+
     public function getAttributeValue($key)
     {
         $value = $this->getStandardisedAttribute($key);
@@ -74,12 +94,63 @@ trait MutableTrait
             return $this->mutateAttribute($key, $value);
         }
 
-        // TODO: handle casts/datatypes
-        // TODO: handle dates
+        // If the attribute exists within the cast array, we will convert it to
+        // an appropriate native PHP type dependant upon the associated value
+        // given with the key in the pair. Dayle made this comment line up.
+        if ($this->hasCast($key))
+        {
+            $value = $this->castAttribute($key, $value);
+        }
+        // If the attribute is listed as a date, we will convert it to a DateTime
+        // instance on retrieval, which makes it quite convenient to work with
+        // date fields without having to create a mutator for each property.
+        elseif (in_array($key, $this->getDates()))
+        {
+            if ($value) return $this->asDateTime($value);
+        }
+
 
         return $value;
     }
-    
+
+    /**
+     * Get the attributes that should be converted to dates.
+     *
+     * @return array
+     */
+    public function getDates()
+    {
+        $defaults = array(static::CREATED_AT, static::UPDATED_AT);
+
+        return array_merge($this->dates, $defaults);
+    }
+
+    /**
+     * Return a timestamp as DateTime object.
+     *
+     * @param  mixed  $value
+     * @return \Carbon\Carbon
+     */
+    protected function asDateTime($value)
+    {
+        // If this value is an integer, we will assume it is a UNIX timestamp's value
+        // and format a Carbon object from this timestamp. This allows flexibility
+        // when defining your date fields as they might be UNIX timestamps here.
+        if (is_numeric($value))
+        {
+            return Carbon::createFromTimestamp($value);
+        }
+
+        // If the value is in simply year, month, day format, we will instantiate the
+        // Carbon instances from that format. Again, this provides for simple date
+        // fields on the database, while still supporting Carbonized conversion.
+        elseif (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $value))
+        {
+            return Carbon::createFromFormat('Y-m-d', $value)->startOfDay();
+        }
+
+        return Carbon::instance($value);
+    }
 
     /**
      * Get an attribute from the $attributes array.
