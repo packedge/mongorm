@@ -18,6 +18,7 @@ trait MutableTrait
      */
     protected $original = [];
 
+
     /**
      * Get an attribute for the model.
      *
@@ -26,34 +27,59 @@ trait MutableTrait
      */
     public function getAttribute($key)
     {
-        // Fetch the value for the key.
+        $inAttributes = array_key_exists($key, $this->attributes);
+
+        // If the key references an attribute, we can just go ahead and return the
+        // plain attribute value from the model. This allows every attribute to
+        // be dynamically accessed through the __get method without accessors.
+        if ($inAttributes || $this->hasGetMutator($key))
+        {
+            return $this->getAttributeValue($key);
+        }
+    }
+
+    public function getStandardisedAttribute($key)
+    {
         $value = $this->getAttributeFromArray($key);
 
-        // TODO: handle mongo types
-        if($this->isMongoType($value))
+        // If the value is an array, recursively standardise all its values.
+        if(is_array($value))
         {
-            // TODO: convert to standard PHP types
-            $newValue = $this->convertMongoType($value);
-            $this->setAttribute($key, $newValue);
+            $data = [];
+            foreach($value as $subkey => $item)
+            {
+                $data[] = $this->getStandardisedAttribute($subkey);
+            }
+            $value = $data;
         }
 
+        // Automatically convert Mongo data types into standard PHP types.
+        if($this->isMongoType($value))
+        {
+            $value = $this->convertMongoType($value);
+        }
 
-        // TODO: handle dates
+        return $value;
+    }
 
-        // TODO: handle casts/datatypes
+    public function getAttributeValue($key)
+    {
+        $value = $this->getStandardisedAttribute($key);
 
-        // Next we will check for the presence of a mutator for
-        // the get operation which simply lets the developers
-        // tweak the attribute as it is get on the model.
-        if($this->hasGetMutator($key))
+        // If the attribute has a get mutator, we will call that then return what
+        // it returns as the value, which is useful for transforming values on
+        // retrieval from the model to a form that is more useful for usage.
+        if ($this->hasGetMutator($key))
         {
             return $this->mutateAttribute($key, $value);
         }
 
-        return $this->getAttributeFromArray($key);
+        // TODO: handle casts/datatypes
+        // TODO: handle dates
 
-        // TODO: will need to check for method existing for relationships
+        return $value;
     }
+    
 
     /**
      * Get an attribute from the $attributes array.

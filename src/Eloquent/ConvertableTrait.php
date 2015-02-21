@@ -2,6 +2,7 @@
 
 
 use DateTime;
+use InvalidArgumentException;
 use MongoCode;
 use MongoDate;
 use MongoId;
@@ -65,6 +66,18 @@ trait ConvertableTrait
     }
 
     /**
+     * Convert a string into a MongoId.
+     *
+     * @param $id
+     * @return MongoId
+     */
+    public function convertToMongoId($id)
+    {
+        if(!is_string($id) || strlen($id) != 24) throw new InvalidArgumentException;
+        return new MongoId($id);
+    }
+
+    /**
      * Convert a MongoCode into a string.
      *
      * @param MongoCode $mongoCode
@@ -84,6 +97,17 @@ trait ConvertableTrait
     public function convertMongoDate(MongoDate $mongoDate)
     {
         return new DateTime($mongoDate->sec);
+    }
+
+    /**
+     * Convert a DateTime into a MongoDate.
+     *
+     * @param DateTime $dateTime
+     * @return MongoDate
+     */
+    public function convertToMongoDate(DateTime $dateTime)
+    {
+        return new MongoDate($dateTime->getTimestamp());
     }
 
     /**
@@ -110,6 +134,18 @@ trait ConvertableTrait
     }
 
     /**
+     * Convert int into a MongoInt32.
+     *
+     * @param int $value
+     * @return MongoInt32
+     */
+    public function convertToMongoInt32($value)
+    {
+        if(!is_int($value)) throw new InvalidArgumentException;
+        return new MongoInt32($value);
+    }
+
+    /**
      * Convert a MongoInt64 into a int.
      *
      * @param MongoInt64 $mongoInt64
@@ -119,5 +155,17 @@ trait ConvertableTrait
     {
         $str =  (string) $mongoInt64;
         return (int) $str;
+    }
+
+    /**
+     * Convert int into a MongoInt64.
+     *
+     * @param int $value
+     * @return MongoInt64
+     */
+    public function convertToMongoInt64($value)
+    {
+        if(!is_int($value)) throw new InvalidArgumentException;
+        return new MongoInt64($value);
     }
 } 
