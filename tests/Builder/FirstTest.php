@@ -6,23 +6,15 @@ use Packedge\Mongorm\Eloquent\Builder;
 class FirstTest extends \PHPUnit_Framework_TestCase
 {
 
-    /**
-     * @var Builder
-     */
-    protected $builder;
-
-    public function setUp()
+    protected function initaliseBuilder($data, $columns = [])
     {
         $monga = m::mock('\League\Monga');
         $connection = m::mock('\League\Monga\Connection');
         $database = m::mock('\League\Monga\Database');
         $collection = m::mock('\League\Monga\Collection');
-        $data = [
-            'first' => 'Fred',
-            'email' => 'fred@gmail.com'
-        ];
+        $model = m::mock('\Packedge\Mongorm\Eloquent\Model');
 
-        $collection->shouldReceive('findOne', [[], []])
+        $collection->shouldReceive('findOne', [[], $columns])
             ->andReturn($data);
         $database->shouldReceive('collection', ['users'])
             ->andReturn($collection);
@@ -30,13 +22,13 @@ class FirstTest extends \PHPUnit_Framework_TestCase
             ->andReturn($database);
         $monga->shouldReceive('connection')
             ->andReturn($connection);
-
-        $this->builder = new Builder($monga);
-
-        $model = m::mock('\Packedge\Mongorm\Eloquent\Model');
         $model->shouldReceive('getCollectionName')
             ->andReturn('users');
-        $this->builder->setModel($model);
+
+        $builder = new Builder($monga);
+        $builder->setModel($model);
+
+        return $builder;
     }
 
     /**
@@ -44,10 +36,49 @@ class FirstTest extends \PHPUnit_Framework_TestCase
      */
     public function it_gets_the_first_item()
     {
-        $first = $this->builder->first();
+        $builder = $this->initaliseBuilder([
+            'first' => 'Fred',
+            'email' => 'fred@gmail.com'
+        ]);
+
+        $first = $builder->first();
 
         $this->assertEquals('Fred', $first['first']);
         $this->assertEquals('fred@gmail.com', $first['email']);
+    }
+
+    /**
+     * @test
+     */
+    public function it_gets_the_first_item_with_select()
+    {
+        $builder = $this->initaliseBuilder([
+            'first' => 'Fred'
+        ], [
+            'first'
+        ]);
+
+        $first = $builder->select(['first'])->first();
+
+        $this->assertEquals('Fred', $first['first']);
+        $this->assertCount(1, $first);
+    }
+
+    /**
+     * @test
+     */
+    public function it_gets_the_first_item_with_column()
+    {
+        $builder = $this->initaliseBuilder([
+            'first' => 'Fred'
+        ], [
+            'first'
+        ]);
+
+        $first = $builder->first(['first']);
+
+        $this->assertEquals('Fred', $first['first']);
+        $this->assertCount(1, $first);
     }
 }
  

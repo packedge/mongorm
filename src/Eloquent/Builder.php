@@ -96,7 +96,9 @@ class Builder
      */
     public function first($columns = [])
     {
-        $columns = array_merge($this->columns, $columns);
+        if (!empty($columns)) {
+            $this->select($columns);
+        }
 
         return $this->getCollection()->findOne($this->query, $columns);
     }
