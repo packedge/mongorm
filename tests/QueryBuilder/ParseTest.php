@@ -58,14 +58,14 @@ class ParseTest extends \PHPUnit_Framework_TestCase
         $query = $this->queryBuilder->parse('email', '!=', 'fred@gmail.com');
 
         $this->assertArrayHasKey('email', $query);
-        $this->assertArrayHasKey('$not', $query['email']);
-        $this->assertEquals('fred@gmail.com', $query['email']['$not']);
+        $this->assertArrayHasKey('$ne', $query['email']);
+        $this->assertEquals('fred@gmail.com', $query['email']['$ne']);
 
         $query = $this->queryBuilder->parse('email', '<>', 'fred@gmail.com');
 
         $this->assertArrayHasKey('email', $query);
-        $this->assertArrayHasKey('$not', $query['email']);
-        $this->assertEquals('fred@gmail.com', $query['email']['$not']);
+        $this->assertArrayHasKey('$ne', $query['email']);
+        $this->assertEquals('fred@gmail.com', $query['email']['$ne']);
     }
 
     /**

@@ -42,7 +42,7 @@ class QueryBuilder
                 return [$column => $value];
             case '!=':
             case '<>':
-                return [$column => ['$not' => $value]];
+                return [$column => ['$ne' => $value]];
             case '>':
                 return [$column => ['$gt' => $value]];
             case '>=':
