@@ -3,7 +3,6 @@
 
 use ArrayAccess;
 use Illuminate\Support\Str;
-use Packedge\Mongorm\Eloquent\MutableTrait;
 use ReflectionClass;
 
 abstract class Model implements ArrayAccess
