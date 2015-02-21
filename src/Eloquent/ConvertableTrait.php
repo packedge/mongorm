@@ -99,6 +99,12 @@ trait ConvertableTrait
         return new DateTime($mongoDate->sec);
     }
 
+    /**
+     * Convert a DateTime into a MongoDate.
+     *
+     * @param DateTime $dateTime
+     * @return MongoDate
+     */
     public function convertToMongoDate(DateTime $dateTime)
     {
         return new MongoDate($dateTime->getTimestamp());
