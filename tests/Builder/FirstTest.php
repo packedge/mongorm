@@ -66,7 +66,6 @@ class FirstTest extends \PHPUnit_Framework_TestCase
         $first = $builder->select(['first'])->first();
 
         $this->assertEquals('Fred', $first['first']);
-
         $this->assertCount(1, $first);
     }
 
