@@ -72,6 +72,23 @@ class FirstTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_gets_the_first_item_with_anything_select()
+    {
+        $builder = $this->initaliseBuilder([
+            'first' => 'Fred',
+            'email' => 'fred@gmail.com'
+        ]);
+
+        $first = $builder->select(['*'])->first();
+
+        $this->assertEquals('Fred', $first['first']);
+        $this->assertEquals('fred@gmail.com', $first['email']);
+        $this->assertCount(2, $first);
+    }
+
+    /**
+     * @test
+     */
     public function it_gets_the_first_item_with_column()
     {
         $builder = $this->initaliseBuilder([
