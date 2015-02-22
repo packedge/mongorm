@@ -14,7 +14,10 @@ class CountTest extends \PHPUnit_Framework_TestCase
         $collection = m::mock('\League\Monga\Collection');
         $cursor = m::mock('\League\Monga\Cursor');
         $model = m::mock('\Packedge\Mongorm\Eloquent\Model');
+        $queryBuilder = m::mock('\Packedge\Mongorm\Query\Builder');
 
+        $queryBuilder->shouldReceive('parse', ['email', null, null])
+            ->andReturn(['email' => ['$exists' => true]]);
         $cursor->shouldReceive('count')
             ->andReturn($data);
         $collection->shouldReceive('find', [$query, []])
@@ -28,7 +31,7 @@ class CountTest extends \PHPUnit_Framework_TestCase
         $model->shouldReceive('getCollectionName')
             ->andReturn('users');
 
-        $builder = new Builder($monga);
+        $builder = new Builder($monga, $queryBuilder);
         $builder->setModel($model);
 
         return $builder;
@@ -48,6 +51,17 @@ class CountTest extends \PHPUnit_Framework_TestCase
         $count = $builder->count();
 
         $this->assertEquals(5, $count);
+    }
+
+    /**
+     * @test
+     */
+    public function it_gets_the_count_where_column_exists()
+    {
+        $builder = $this->initaliseBuilder(3, ['email' => ['$exists' => true]]);
+        $count = $builder->where('email')->count();
+
+        $this->assertEquals(3, $count);
     }
 }
  
