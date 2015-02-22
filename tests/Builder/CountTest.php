@@ -63,5 +63,16 @@ class CountTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(3, $count);
     }
+
+    /**
+     * @test
+     */
+    public function it_gets_the_count_where_raw_column_exists()
+    {
+        $builder = $this->initaliseBuilder(3, ['email' => ['$exists' => true]]);
+        $count = $builder->whereRaw(['email' => ['$exists' => true]])->count();
+
+        $this->assertEquals(3, $count);
+    }
 }
  
