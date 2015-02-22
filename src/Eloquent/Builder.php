@@ -69,6 +69,9 @@ class Builder
         return $this->getDatabase()->collection($this->model->getCollectionName());
     }
 
+    /**
+     * @return mixed
+     */
     protected function doQuery()
     {
         return $this->getCollection()->find($this->query, $this->columns);
@@ -118,6 +121,17 @@ class Builder
     }
 
     /**
+     * @param array $query
+     * @return $this
+     */
+    public function whereRaw(array $query)
+    {
+        $this->query = $query;
+
+        return $this;
+    }
+
+    /**
      * @param array $columns
      * @return $this
      */
@@ -162,6 +176,9 @@ class Builder
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function count()
     {
         return $this->doQuery()->count();
