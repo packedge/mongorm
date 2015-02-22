@@ -20,7 +20,7 @@ This package is still in development.
 - [x] Override primary key (default to '_id')
 - [x] Return dates as Carbon instances
 - [ ] Save as mongodates
-- [ ] Support casting data
+- [x] Support casting data
 - [x] Cast any mongo types to PHP types.
 - [ ] Mass assignemnt protection
 - [ ] Soft deletes
