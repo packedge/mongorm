@@ -18,7 +18,7 @@ This package is still in development.
 - [ ] Change connection e.g. Model::on('something')->find()
 - [x] Accessors & mutator methods
 - [x] Override primary key (default to '_id')
-- [ ] Return dates as Carbon instances
+- [x] Return dates as Carbon instances
 - [ ] Save as mongodates
 - [ ] Support casting data
 - [x] Cast any mongo types to PHP types.
