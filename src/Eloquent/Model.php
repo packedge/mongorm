@@ -10,13 +10,18 @@ abstract class Model extends CoreModel
      */
     public static function first($columns = [])
     {
-        $instance = new static;
-        return $instance->newBuilder()->first($columns);
+        return static::instance()->newBuilder()->first($columns);
     }
 
     public static function all($columns = ['*'])
     {
-        $instance = new static;
-        return $instance->newBuilder()->select($columns)->get();
+        // TODO: should return a collection
+        return static::instance()->newBuilder()->select($columns)->get();
+    }
+
+    public static function find($id)
+    {
+        $instance = static::instance();
+        return $instance->newBuilder()->where('_id', '=', $instance->convertToMongoId($id))->get();
     }
 }

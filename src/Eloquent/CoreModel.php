@@ -51,6 +51,11 @@ abstract class CoreModel implements ArrayAccess
      */
     const UPDATED_AT = 'updated_at';
 
+    public static function instance()
+    {
+        return new static;
+    }
+
     /**
      * Returns a new instance of the Builder.
      *
