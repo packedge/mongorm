@@ -183,4 +183,9 @@ class Builder
     {
         return $this->doQuery()->count();
     }
+
+    public function insert(array $data)
+    {
+        return $this->getCollection()->insert($data);
+    }
 }
