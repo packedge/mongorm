@@ -11,7 +11,12 @@ abstract class Model extends CoreModel
     public static function first($columns = [])
     {
         $instance = new static;
-
         return $instance->newBuilder()->first($columns);
+    }
+
+    public static function all($columns = ['*'])
+    {
+        $instance = new static;
+        return $instance->newBuilder()->select($columns)->get();
     }
 }
