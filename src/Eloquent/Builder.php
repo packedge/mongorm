@@ -188,4 +188,9 @@ class Builder
     {
         return $this->getCollection()->insert($data);
     }
+
+    public function update(array $data)
+    {
+        return $this->getCollection()->update($data, $this->query);
+    }
 }
