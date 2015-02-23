@@ -78,9 +78,9 @@ class Builder
     }
 
     /**
-     * @param Model $model
+     * @param CoreModel $model
      */
-    public function setModel(Model $model)
+    public function setModel(CoreModel $model)
     {
         $this->model = $model;
     }
