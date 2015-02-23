@@ -21,6 +21,10 @@
         {
             "name": "Ashley Clarke",
             "email": "me@ashleyclarke.me"
+        },
+        {
+            "name": "Steve Axtmann",
+            "email": "steve.axtmann+packedge@gmail.com"
         }
     ],
     "minimum-stability": "stable"
