@@ -15,12 +15,13 @@ abstract class Model extends CoreModel
 
     public static function all($columns = ['*'])
     {
-        // TODO: should return a collection
+        // TODO: should return a collection of models.
         return static::instance()->newBuilder()->select($columns)->get();
     }
 
     public static function find($id)
     {
+        // TODO: should return a model with attributes filled.
         $instance = static::instance();
         return $instance->newBuilder()->where('_id', '=', $instance->convertToMongoId($id))->get();
     }
