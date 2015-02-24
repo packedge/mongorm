@@ -38,6 +38,13 @@ abstract class CoreModel implements ArrayAccess
     protected $guarded = ['*'];
 
     /**
+     * Indicates if the model exists.
+     *
+     * @var bool
+     */
+    public $exists = false;
+
+    /**
      * The name of the "created at" column.
      *
      * @var string
