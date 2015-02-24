@@ -25,4 +25,9 @@ abstract class Model extends CoreModel
         $instance = static::instance();
         return $instance->newBuilder()->where('_id', '=', $instance->convertToMongoId($id))->get();
     }
+
+    public function save()
+    {
+        $this->newBuilder()->update($this->attributes);
+    }
 }
