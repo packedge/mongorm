@@ -95,7 +95,7 @@ class Builder
 
     /**
      * @param array $columns
-     * @return array|null
+     * @return Collection|null
      */
     public function first($columns = [])
     {
@@ -103,7 +103,13 @@ class Builder
             $this->select($columns);
         }
 
-        return $this->getCollection()->findOne($this->query, $this->columns);
+        $result = $this->getCollection()->findOne($this->query, $this->columns);
+
+        if (is_null($result)) {
+            return null;
+        }
+
+        return Collection::make($result);
     }
 
     /**
@@ -151,7 +157,7 @@ class Builder
     }
 
     /**
-     * @return array
+     * @return Collection
      */
     public function get()
     {
@@ -162,7 +168,7 @@ class Builder
             $results->limit($this->limit);
         }
 
-        return $results->toArray();
+        return Collection::make($results->toArray());
     }
 
     /**
