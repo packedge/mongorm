@@ -6,7 +6,6 @@ use DateTime;
 
 trait MutableTrait
 {
-    use ConvertableTrait;
     /**
      * The models attributes.
      *
@@ -52,30 +51,6 @@ trait MutableTrait
         {
             return $this->getAttributeValue($key);
         }
-    }
-
-    public function getStandardisedAttribute($key)
-    {
-        $value = $this->getAttributeFromArray($key);
-
-        // If the value is an array, recursively standardise all its values.
-        if(is_array($value))
-        {
-            $data = [];
-            foreach($value as $subkey => $item)
-            {
-                $data[] = $this->getStandardisedAttribute($subkey);
-            }
-            $value = $data;
-        }
-
-        // Automatically convert Mongo data types into standard PHP types.
-        if($this->isMongoType($value))
-        {
-            $value = $this->convertMongoType($value);
-        }
-
-        return $value;
     }
 
     /**
@@ -152,7 +127,7 @@ trait MutableTrait
 
     public function getAttributeValue($key)
     {
-        $value = $this->getStandardisedAttribute($key);
+        $value = $this->attributes[$key];
 
         // If the attribute has a get mutator, we will call that then return what
         // it returns as the value, which is useful for transforming values on
@@ -218,20 +193,6 @@ trait MutableTrait
         }
 
         return Carbon::instance($value);
-    }
-
-    /**
-     * Get an attribute from the $attributes array.
-     *
-     * @param  string  $key
-     * @return mixed
-     */
-    protected function getAttributeFromArray($key)
-    {
-        if (array_key_exists($key, $this->attributes))
-        {
-            return $this->attributes[$key];
-        }
     }
 
     /**

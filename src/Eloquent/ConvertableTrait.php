@@ -1,6 +1,5 @@
 <?php namespace Packedge\Mongorm\Eloquent;
 
-
 use DateTime;
 use InvalidArgumentException;
 use MongoCode;
@@ -167,5 +166,44 @@ trait ConvertableTrait
     {
         if(!is_int($value)) throw new InvalidArgumentException;
         return new MongoInt64($value);
+    }
+
+    public function getStandardisedAttribute($data, $key)
+    {
+        $value = $this->getAttributeFromArray($data, $key);
+
+        // If the value is an array, recursively standardise all its values.
+        if(is_array($value))
+        {
+            $data = [];
+            foreach($value as $subkey => $item)
+            {
+                $data[$subkey] = $this->getStandardisedAttribute($value, $subkey);
+            }
+            $value = $data;
+        }
+
+        // Automatically convert Mongo data types into standard PHP types.
+        if($this->isMongoType($value))
+        {
+            $value = $this->convertMongoType($value);
+        }
+
+        return $value;
+    }
+
+    /**
+     * Get an attribute from the $attributes array.
+     *
+     * @param  array  $data
+     * @param  string $key
+     * @return mixed
+     */
+    protected function getAttributeFromArray($data, $key)
+    {
+        if (array_key_exists($key, $data))
+        {
+            return $data[$key];
+        }
     }
 } 

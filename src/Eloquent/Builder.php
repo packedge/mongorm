@@ -9,6 +9,9 @@ use Packedge\Mongorm\Query\Builder as QueryBuilder;
  */
 class Builder
 {
+
+    use ConvertableTrait;
+
     /**
      * @var array
      */
@@ -109,6 +112,8 @@ class Builder
             return null;
         }
 
+        $result = $this->getStandardisedAttribute([$result], 0);
+
         return Collection::make($result);
     }
 
@@ -168,7 +173,13 @@ class Builder
             $results->limit($this->limit);
         }
 
-        return Collection::make($results->toArray());
+        $results = $results->toArray();
+
+        foreach ($results as $key => &$result) {
+            $result = $this->getStandardisedAttribute($results, $key);
+        }
+
+        return Collection::make($results);
     }
 
     /**
