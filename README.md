@@ -34,7 +34,7 @@ This package is still in development.
 - [ ] Apending attributes to array, json
 
 ####Model Methods
-- [ ] Model::all()
+- [x] Model::all()
 - [ ] Model::find()
 - [ ] Model::findOrFail()
 - [ ] Model::where()
