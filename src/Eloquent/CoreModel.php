@@ -58,6 +58,11 @@ abstract class CoreModel implements ArrayAccess
      */
     const UPDATED_AT = 'updated_at';
 
+    /**
+     * Return a new instance of the class.
+     *
+     * @return static
+     */
     public static function instance()
     {
         return new static;
@@ -127,6 +132,11 @@ abstract class CoreModel implements ArrayAccess
         return count($this->fillable) == 0 && $this->guarded == ['*'];
     }
 
+    /**
+     * Fill the models attributes with values.
+     * 
+     * @param array $attributes
+     */
     public function fill(array $attributes)
     {
         $totallyGuarded = $this->totallyGuarded();
