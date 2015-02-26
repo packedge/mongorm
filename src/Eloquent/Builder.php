@@ -162,7 +162,7 @@ class Builder
     }
 
     /**
-     * @return Collection
+     * @return Collection|null
      */
     public function get()
     {
@@ -174,6 +174,10 @@ class Builder
         }
 
         $results = $results->toArray();
+
+        if (!count($results)) {
+            return null;
+        }
 
         foreach ($results as $key => &$result) {
             $result = $this->getStandardisedAttribute($results, $key);
