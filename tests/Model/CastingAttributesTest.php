@@ -91,4 +91,3 @@ class CastingAttributesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('frank', $this->model->json_value['name']);
     }
 }
- 

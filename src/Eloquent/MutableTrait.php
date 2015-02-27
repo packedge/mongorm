@@ -1,6 +1,5 @@
 <?php namespace Packedge\Mongorm\Eloquent;
 
-
 use Carbon\Carbon;
 
 trait MutableTrait
@@ -115,7 +114,9 @@ trait MutableTrait
         // instance on retrieval, which makes it quite convenient to work with
         // date fields without having to create a mutator for each property.
         elseif (in_array($key, $this->getDates())) {
-            if ($value) return $this->asDateTime($value);
+            if ($value) {
+                return $this->asDateTime($value);
+            }
         }
 
 
@@ -143,7 +144,9 @@ trait MutableTrait
      */
     protected function castAttribute($key, $value)
     {
-        if (is_null($value)) return $value;
+        if (is_null($value)) {
+            return $value;
+        }
         switch ($this->getCastType($key)) {
             case 'int':
             case 'integer':
@@ -320,4 +323,4 @@ trait MutableTrait
     {
         return trim(strtolower($this->casts[$key]));
     }
-} 
+}

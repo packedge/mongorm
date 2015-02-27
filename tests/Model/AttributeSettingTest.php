@@ -60,4 +60,3 @@ class AttributeSettingTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(21, $this->model->getAttributes()['age']);
     }
 }
- 

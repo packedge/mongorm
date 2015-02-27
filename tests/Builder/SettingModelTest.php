@@ -34,4 +34,3 @@ class SettingModelTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Packedge\Mongorm\Eloquent\Model', $this->builder->getModel());
     }
 }
- 

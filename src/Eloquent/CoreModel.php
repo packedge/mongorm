@@ -1,6 +1,5 @@
 <?php namespace Packedge\Mongorm\Eloquent;
 
-
 use ArrayAccess;
 use Illuminate\Support\Str;
 use ReflectionClass;
@@ -82,7 +81,9 @@ abstract class CoreModel implements ArrayAccess
      */
     public function getCollectionName()
     {
-        if (isset($this->collection)) return $this->collection;
+        if (isset($this->collection)) {
+            return $this->collection;
+        }
 
         $reflector = new ReflectionClass($this);
         $str = new Str;
@@ -141,6 +142,4 @@ abstract class CoreModel implements ArrayAccess
     {
         return count($this->fillable) == 0 && $this->guarded == ['*'];
     }
-
-
 }

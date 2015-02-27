@@ -3,9 +3,13 @@
 namespace Fruits {
     use Packedge\Mongorm\Eloquent\Model;
 
-    class Banana extends Model {}
+    class Banana extends Model
+    {
+    }
 
-    class RedGrape extends Model {}
+    class RedGrape extends Model
+    {
+    }
 }
 
 
@@ -55,4 +59,3 @@ namespace Model{
         }
     }
 }
- 

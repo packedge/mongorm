@@ -125,4 +125,3 @@ class ParseTest extends \PHPUnit_Framework_TestCase
         $this->queryBuilder->parse('first', '...', 'Alfred');
     }
 }
- 

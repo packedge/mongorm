@@ -163,4 +163,3 @@ class ConvertMongoTypesTest extends \PHPUnit_Framework_TestCase
         $this->model->convertToMongoInt64("abc");
     }
 }
- 

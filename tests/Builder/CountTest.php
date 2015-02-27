@@ -75,4 +75,3 @@ class CountTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3, $count);
     }
 }
- 

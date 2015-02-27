@@ -65,4 +65,3 @@ class AttributeGettingTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(3, $this->model->age);
     }
 }
- 

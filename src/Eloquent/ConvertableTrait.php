@@ -41,7 +41,9 @@ trait ConvertableTrait
      */
     public function convertToMongoId($id)
     {
-        if (!is_string($id) || strlen($id) != 24) throw new InvalidArgumentException;
+        if (!is_string($id) || strlen($id) != 24) {
+            throw new InvalidArgumentException;
+        }
         return new MongoId($id);
     }
 
@@ -109,7 +111,9 @@ trait ConvertableTrait
      */
     public function convertToMongoInt32($value)
     {
-        if (!is_int($value)) throw new InvalidArgumentException;
+        if (!is_int($value)) {
+            throw new InvalidArgumentException;
+        }
         return new MongoInt32($value);
     }
 
@@ -133,7 +137,9 @@ trait ConvertableTrait
      */
     public function convertToMongoInt64($value)
     {
-        if (!is_int($value)) throw new InvalidArgumentException;
+        if (!is_int($value)) {
+            throw new InvalidArgumentException;
+        }
         return new MongoInt64($value);
     }
 
@@ -200,4 +206,4 @@ trait ConvertableTrait
             return $this->{$methodName}($value);
         }
     }
-} 
+}

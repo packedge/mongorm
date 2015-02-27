@@ -51,4 +51,3 @@ class ConvertDatesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($date, $this->model->data);
     }
 }
- 

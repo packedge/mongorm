@@ -81,4 +81,3 @@ class GetTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(2, $results);
     }
 }
- 

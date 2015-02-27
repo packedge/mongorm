@@ -2,8 +2,11 @@
 
 use Packedge\Mongorm\Eloquent\Model;
 
-class Kiwi extends Model {}
-class Banana extends Model {
+class Kiwi extends Model
+{
+}
+class Banana extends Model
+{
     protected $primaryKey = 'identifier';
 }
 
@@ -41,4 +44,3 @@ class PrimaryKeyTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('identifier', $model->getKeyName());
     }
 }
- 
