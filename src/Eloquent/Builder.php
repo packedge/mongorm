@@ -56,11 +56,28 @@ class Builder
     }
 
     /**
-     * @return Model
+     * @return \League\Monga\Database
      */
-    public function getModel()
+    protected function getDatabase()
     {
-        return $this->model;
+        // TODO: load from env/config
+        return $this->monga->database('example');
+    }
+
+    /**
+     * @return \League\Monga\Collection
+     */
+    protected function getCollection()
+    {
+        return $this->getDatabase()->collection($this->model->getCollectionName());
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function doQuery()
+    {
+        return $this->getCollection()->find($this->query, $this->columns);
     }
 
     /**
@@ -69,6 +86,14 @@ class Builder
     public function setModel(CoreModel $model)
     {
         $this->model = $model;
+    }
+
+    /**
+     * @return Model
+     */
+    public function getModel()
+    {
+        return $this->model;
     }
 
     /**
@@ -90,42 +115,6 @@ class Builder
         $result = $this->getStandardisedAttribute([$result], 0);
 
         return Collection::make($result);
-    }
-
-    /**
-     * @param array $columns
-     * @return $this
-     */
-    public function select(array $columns)
-    {
-        if (empty($columns) || $columns[0] === '*') {
-            $this->columns = [];
-
-            return $this;
-        }
-
-        foreach ($columns as $column) {
-            $this->columns[$column] = true;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return \League\Monga\Collection
-     */
-    protected function getCollection()
-    {
-        return $this->getDatabase()->collection($this->model->getCollectionName());
-    }
-
-    /**
-     * @return \League\Monga\Database
-     */
-    protected function getDatabase()
-    {
-        // TODO: load from env/config
-        return $this->monga->database('example');
     }
 
     /**
@@ -154,7 +143,26 @@ class Builder
     }
 
     /**
-     * @return Collection
+     * @param array $columns
+     * @return $this
+     */
+    public function select(array $columns)
+    {
+        if (empty($columns) || $columns[0] === '*') {
+            $this->columns = [];
+
+            return $this;
+        }
+
+        foreach ($columns as $column) {
+            $this->columns[$column] = true;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|null
      */
     public function get()
     {
@@ -167,19 +175,15 @@ class Builder
 
         $results = $results->toArray();
 
+        if (!count($results)) {
+            return null;
+        }
+
         foreach ($results as $key => &$result) {
             $result = $this->getStandardisedAttribute($results, $key);
         }
 
         return Collection::make($results);
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function doQuery()
-    {
-        return $this->getCollection()->find($this->query, $this->columns);
     }
 
     /**
