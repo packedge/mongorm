@@ -10,53 +10,47 @@ abstract class CoreModel implements ArrayAccess
     use MutableTrait;
     
     /**
-     * The primary key for the model.
-     *
-     * @var string
-     */
-    protected $primaryKey = '_id';
-
-    /**
-     * The collection associated with the model.
-     *
-     * @var String
-     */
-    protected $collection;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [];
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = ['*'];
-
-    /**
-     * Indicates if the model exists.
-     *
-     * @var bool
-     */
-    public $exists = false;
-
-    /**
      * The name of the "created at" column.
      *
      * @var string
      */
     const CREATED_AT = 'created_at';
-
     /**
      * The name of the "updated at" column.
      *
      * @var string
      */
     const UPDATED_AT = 'updated_at';
+    /**
+     * Indicates if the model exists.
+     *
+     * @var bool
+     */
+    public $exists = false;
+    /**
+     * The primary key for the model.
+     *
+     * @var string
+     */
+    protected $primaryKey = '_id';
+    /**
+     * The collection associated with the model.
+     *
+     * @var String
+     */
+    protected $collection;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [];
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = ['*'];
 
     /**
      * Return a new instance of the class.
@@ -77,7 +71,7 @@ abstract class CoreModel implements ArrayAccess
     {
         $builder = new Builder;
         $builder->setModel($this);
-        
+
         return $builder;
     }
 
@@ -88,7 +82,7 @@ abstract class CoreModel implements ArrayAccess
      */
     public function getCollectionName()
     {
-        if(isset($this->collection)) return $this->collection;
+        if (isset($this->collection)) return $this->collection;
 
         $reflector = new ReflectionClass($this);
         $str = new Str;
@@ -114,12 +108,28 @@ abstract class CoreModel implements ArrayAccess
     /**
      * Set the primary key for the model.
      *
-     * @param  string  $key
+     * @param  string $key
      * @return void
      */
     public function setKeyName($key)
     {
         $this->primaryKey = $key;
+    }
+
+    /**
+     * Fill the models attributes with values.
+     *
+     * @param array $attributes
+     */
+    public function fill(array $attributes)
+    {
+        $totallyGuarded = $this->totallyGuarded();
+
+        // TODO: check if its fillable
+        // TODO: set attribute
+        // TODO: else throw exception
+
+        // TODO: return $this for chaining
     }
 
     /**
@@ -130,22 +140,6 @@ abstract class CoreModel implements ArrayAccess
     public function totallyGuarded()
     {
         return count($this->fillable) == 0 && $this->guarded == ['*'];
-    }
-
-    /**
-     * Fill the models attributes with values.
-     * 
-     * @param array $attributes
-     */
-    public function fill(array $attributes)
-    {
-        $totallyGuarded = $this->totallyGuarded();
-
-        // TODO: check if its fillable
-            // TODO: set attribute
-        // TODO: else throw exception
-
-        // TODO: return $this for chaining
     }
 
 

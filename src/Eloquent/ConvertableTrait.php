@@ -23,37 +23,6 @@ trait ConvertableTrait
     ];
 
     /**
-     * Check if a given value is a mongo data type.
-     *
-     * @param $value
-     * @return bool
-     */
-    public function isMongoType($value)
-    {
-        if(is_object($value))
-        {
-            return in_array(get_class($value), $this->mongoTypes);
-        }
-        return false;
-    }
-
-    /**
-     * Convert a mongo data type, into a standard PHP type.
-     *
-     * @param $value
-     * @return mixed
-     */
-    public function convertMongoType($value)
-    {
-        $type = get_class($value);
-        $methodName = 'convert' . $type;
-        if(method_exists($this, $methodName))
-        {
-            return $this->{$methodName}($value);
-        }
-    }
-
-    /**
      * Convert a MongoId into a string.
      *
      * @param MongoId $mongoId
@@ -61,7 +30,7 @@ trait ConvertableTrait
      */
     public function convertMongoId(MongoId $mongoId)
     {
-        return (string) $mongoId;
+        return (string)$mongoId;
     }
 
     /**
@@ -72,7 +41,7 @@ trait ConvertableTrait
      */
     public function convertToMongoId($id)
     {
-        if(!is_string($id) || strlen($id) != 24) throw new InvalidArgumentException;
+        if (!is_string($id) || strlen($id) != 24) throw new InvalidArgumentException;
         return new MongoId($id);
     }
 
@@ -84,7 +53,7 @@ trait ConvertableTrait
      */
     public function convertMongoCode(MongoCode $mongoCode)
     {
-        return (string) $mongoCode;
+        return (string)$mongoCode;
     }
 
     /**
@@ -117,7 +86,7 @@ trait ConvertableTrait
      */
     public function convertMongoRegex(MongoRegex $mongoRegex)
     {
-        return (string) $mongoRegex;
+        return (string)$mongoRegex;
     }
 
     /**
@@ -128,8 +97,8 @@ trait ConvertableTrait
      */
     public function convertMongoInt32(MongoInt32 $mongoInt32)
     {
-        $str =  (string) $mongoInt32;
-        return (int) $str;
+        $str = (string)$mongoInt32;
+        return (int)$str;
     }
 
     /**
@@ -140,7 +109,7 @@ trait ConvertableTrait
      */
     public function convertToMongoInt32($value)
     {
-        if(!is_int($value)) throw new InvalidArgumentException;
+        if (!is_int($value)) throw new InvalidArgumentException;
         return new MongoInt32($value);
     }
 
@@ -152,8 +121,8 @@ trait ConvertableTrait
      */
     public function convertMongoInt64(MongoInt64 $mongoInt64)
     {
-        $str =  (string) $mongoInt64;
-        return (int) $str;
+        $str = (string)$mongoInt64;
+        return (int)$str;
     }
 
     /**
@@ -164,7 +133,7 @@ trait ConvertableTrait
      */
     public function convertToMongoInt64($value)
     {
-        if(!is_int($value)) throw new InvalidArgumentException;
+        if (!is_int($value)) throw new InvalidArgumentException;
         return new MongoInt64($value);
     }
 
@@ -173,19 +142,16 @@ trait ConvertableTrait
         $value = $this->getAttributeFromArray($data, $key);
 
         // If the value is an array, recursively standardise all its values.
-        if(is_array($value))
-        {
+        if (is_array($value)) {
             $data = [];
-            foreach($value as $subkey => $item)
-            {
+            foreach ($value as $subkey => $item) {
                 $data[$subkey] = $this->getStandardisedAttribute($value, $subkey);
             }
             $value = $data;
         }
 
         // Automatically convert Mongo data types into standard PHP types.
-        if($this->isMongoType($value))
-        {
+        if ($this->isMongoType($value)) {
             $value = $this->convertMongoType($value);
         }
 
@@ -195,15 +161,43 @@ trait ConvertableTrait
     /**
      * Get an attribute from the $attributes array.
      *
-     * @param  array  $data
+     * @param  array $data
      * @param  string $key
      * @return mixed
      */
     protected function getAttributeFromArray($data, $key)
     {
-        if (array_key_exists($key, $data))
-        {
+        if (array_key_exists($key, $data)) {
             return $data[$key];
+        }
+    }
+
+    /**
+     * Check if a given value is a mongo data type.
+     *
+     * @param $value
+     * @return bool
+     */
+    public function isMongoType($value)
+    {
+        if (is_object($value)) {
+            return in_array(get_class($value), $this->mongoTypes);
+        }
+        return false;
+    }
+
+    /**
+     * Convert a mongo data type, into a standard PHP type.
+     *
+     * @param $value
+     * @return mixed
+     */
+    public function convertMongoType($value)
+    {
+        $type = get_class($value);
+        $methodName = 'convert' . $type;
+        if (method_exists($this, $methodName)) {
+            return $this->{$methodName}($value);
         }
     }
 } 
