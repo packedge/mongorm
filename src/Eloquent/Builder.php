@@ -213,4 +213,9 @@ class Builder
     {
         return $this->getCollection()->update($data, $this->query);
     }
+
+    public function delete()
+    {
+        return $this->getCollection()->remove($this->query);
+    }
 }
