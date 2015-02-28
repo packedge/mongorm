@@ -19,7 +19,7 @@ trait ConvertableTrait
      */
     private $mongoTypes = [
         'MongoId', 'MongoCode', 'MongoDate',
-        'MongoRegex', 'MongoInt32', 'MongoInt64'
+        'MongoRegex', 'MongoInt32', 'MongoInt64',
     ];
 
     /**
@@ -30,7 +30,7 @@ trait ConvertableTrait
      */
     public function convertMongoId(MongoId $mongoId)
     {
-        return (string)$mongoId;
+        return (string) $mongoId;
     }
 
     /**
@@ -44,6 +44,7 @@ trait ConvertableTrait
         if (!is_string($id) || strlen($id) != 24) {
             throw new InvalidArgumentException;
         }
+
         return new MongoId($id);
     }
 
@@ -55,7 +56,7 @@ trait ConvertableTrait
      */
     public function convertMongoCode(MongoCode $mongoCode)
     {
-        return (string)$mongoCode;
+        return (string) $mongoCode;
     }
 
     /**
@@ -88,7 +89,7 @@ trait ConvertableTrait
      */
     public function convertMongoRegex(MongoRegex $mongoRegex)
     {
-        return (string)$mongoRegex;
+        return (string) $mongoRegex;
     }
 
     /**
@@ -99,8 +100,9 @@ trait ConvertableTrait
      */
     public function convertMongoInt32(MongoInt32 $mongoInt32)
     {
-        $str = (string)$mongoInt32;
-        return (int)$str;
+        $str = (string) $mongoInt32;
+
+        return (int) $str;
     }
 
     /**
@@ -114,6 +116,7 @@ trait ConvertableTrait
         if (!is_int($value)) {
             throw new InvalidArgumentException;
         }
+
         return new MongoInt32($value);
     }
 
@@ -125,8 +128,9 @@ trait ConvertableTrait
      */
     public function convertMongoInt64(MongoInt64 $mongoInt64)
     {
-        $str = (string)$mongoInt64;
-        return (int)$str;
+        $str = (string) $mongoInt64;
+
+        return (int) $str;
     }
 
     /**
@@ -140,6 +144,7 @@ trait ConvertableTrait
         if (!is_int($value)) {
             throw new InvalidArgumentException;
         }
+
         return new MongoInt64($value);
     }
 
@@ -189,6 +194,7 @@ trait ConvertableTrait
         if (is_object($value)) {
             return in_array(get_class($value), $this->mongoTypes);
         }
+
         return false;
     }
 

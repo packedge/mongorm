@@ -5,7 +5,6 @@ use Packedge\Mongorm\Eloquent\Builder;
 
 class GetTest extends \PHPUnit_Framework_TestCase
 {
-
     protected function initaliseBuilder($data, $limit = -1)
     {
         $monga = m::mock('\League\Monga');
@@ -51,11 +50,11 @@ class GetTest extends \PHPUnit_Framework_TestCase
         $builder = $this->initaliseBuilder([
             [
                 'first' => 'Fred',
-                'email' => 'fred@gmail.com'
+                'email' => 'fred@gmail.com',
             ],
             ['first' => 'Alfred'],
             ['email' => 'i@email.com'],
-            ['first' => 'Name', 'email' => 'email@address.com']
+            ['first' => 'Name', 'email' => 'email@address.com'],
         ]);
         $results = $builder->get();
 
@@ -72,9 +71,9 @@ class GetTest extends \PHPUnit_Framework_TestCase
         $builder = $this->initaliseBuilder([
             [
                 'first' => 'Fred',
-                'email' => 'fred@gmail.com'
+                'email' => 'fred@gmail.com',
             ],
-            ['first' => 'Alfred']
+            ['first' => 'Alfred'],
         ], 2);
         $results = $builder->take(2)->get();
 

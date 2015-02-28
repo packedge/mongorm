@@ -5,22 +5,21 @@ use Packedge\Mongorm\Eloquent\Model;
 class User extends Model
 {
     protected $casts = [
-        'admin' => 'boolean',
-        'male' => 'bool',
-        'age' => 'int',
-        'foot_size' => 'integer',
-        'real_value' => 'real',
-        'float_value' => 'float',
+        'admin'        => 'boolean',
+        'male'         => 'bool',
+        'age'          => 'int',
+        'foot_size'    => 'integer',
+        'real_value'   => 'real',
+        'float_value'  => 'float',
         'double_value' => 'double',
         'object_value' => 'object',
-        'array_value' => 'array',
-        'json_value' => 'json',
+        'array_value'  => 'array',
+        'json_value'   => 'json',
     ];
 }
 
 class CastingAttributesTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var User
      */

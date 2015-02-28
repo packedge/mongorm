@@ -5,7 +5,6 @@ use Packedge\Mongorm\Eloquent\Builder;
 
 class FirstTest extends \PHPUnit_Framework_TestCase
 {
-
     protected function initaliseBuilder($data, $columns = [])
     {
         $monga = m::mock('\League\Monga');
@@ -43,7 +42,7 @@ class FirstTest extends \PHPUnit_Framework_TestCase
     {
         $builder = $this->initaliseBuilder([
             'first' => 'Fred',
-            'email' => 'fred@gmail.com'
+            'email' => 'fred@gmail.com',
         ]);
 
         $first = $builder->first();
@@ -58,9 +57,9 @@ class FirstTest extends \PHPUnit_Framework_TestCase
     public function it_gets_the_first_item_with_select()
     {
         $builder = $this->initaliseBuilder([
-            'first' => 'Fred'
+            'first' => 'Fred',
         ], [
-            'first'
+            'first',
         ]);
 
         $first = $builder->select(['first'])->first();
@@ -76,7 +75,7 @@ class FirstTest extends \PHPUnit_Framework_TestCase
     {
         $builder = $this->initaliseBuilder([
             'first' => 'Fred',
-            'email' => 'fred@gmail.com'
+            'email' => 'fred@gmail.com',
         ]);
 
         $first = $builder->select(['*'])->first();
@@ -92,9 +91,9 @@ class FirstTest extends \PHPUnit_Framework_TestCase
     public function it_gets_the_first_item_with_column()
     {
         $builder = $this->initaliseBuilder([
-            'first' => 'Fred'
+            'first' => 'Fred',
         ], [
-            'first'
+            'first',
         ]);
 
         $first = $builder->first(['first']);

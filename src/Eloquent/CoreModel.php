@@ -87,6 +87,7 @@ abstract class CoreModel implements ArrayAccess
 
         $reflector = new ReflectionClass($this);
         $str = new Str;
+
         return $str->lower(
             $str->plural(
                 $str->snake(

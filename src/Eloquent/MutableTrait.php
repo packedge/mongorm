@@ -150,16 +150,16 @@ trait MutableTrait
         switch ($this->getCastType($key)) {
             case 'int':
             case 'integer':
-                return (int)$value;
+                return (int) $value;
             case 'real':
             case 'float':
             case 'double':
-                return (float)$value;
+                return (float) $value;
             case 'string':
-                return (string)$value;
+                return (string) $value;
             case 'bool':
             case 'boolean':
-                return (bool)$value;
+                return (bool) $value;
             case 'object':
                 return json_decode($value);
             case 'array':
@@ -177,7 +177,7 @@ trait MutableTrait
      */
     public function getDates()
     {
-        $defaults = array(static::CREATED_AT, static::UPDATED_AT);
+        $defaults = [static::CREATED_AT, static::UPDATED_AT];
 
         return array_merge($this->dates, $defaults);
     }
@@ -297,8 +297,10 @@ trait MutableTrait
     {
         if ($this->hasCast($key)) {
             $type = $this->getCastType($key);
+
             return $type === 'array' || $type === 'json' || $type === 'object';
         }
+
         return false;
     }
 

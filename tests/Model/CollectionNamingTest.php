@@ -1,5 +1,4 @@
 <?php
-
 namespace Fruits {
     use Packedge\Mongorm\Eloquent\Model;
 
@@ -11,8 +10,6 @@ namespace Fruits {
     {
     }
 }
-
-
 namespace Model{
     use Fruits\Banana;
     use Fruits\RedGrape;

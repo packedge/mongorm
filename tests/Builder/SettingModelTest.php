@@ -5,7 +5,6 @@ use Packedge\Mongorm\Eloquent\Builder;
 
 class SettingModelTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Builder
      */

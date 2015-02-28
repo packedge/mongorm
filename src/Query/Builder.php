@@ -6,7 +6,6 @@
  */
 class Builder
 {
-
     /**
      * Convert the given query to mongo syntax
      *

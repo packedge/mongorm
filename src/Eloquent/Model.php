@@ -23,6 +23,7 @@ abstract class Model extends CoreModel
     {
         // TODO: should return a model with attributes filled.
         $instance = static::instance();
+
         return $instance->newBuilder()->where('_id', '=', $instance->convertToMongoId($id))->get();
     }
 

@@ -1,11 +1,9 @@
 <?php namespace QueryBuilder;
 
-use Mockery as m;
 use Packedge\Mongorm\Query\Builder as QueryBuilder;
 
 class ParseTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var QueryBuilder
      */

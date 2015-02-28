@@ -9,7 +9,6 @@ use Packedge\Mongorm\Query\Builder as QueryBuilder;
  */
 class Builder
 {
-
     use ConvertableTrait;
 
     /**
@@ -109,7 +108,7 @@ class Builder
         $result = $this->getCollection()->findOne($this->query, $this->columns);
 
         if (is_null($result)) {
-            return null;
+            return;
         }
 
         $result = $this->getStandardisedAttribute([$result], 0);
@@ -176,7 +175,7 @@ class Builder
         $results = $results->toArray();
 
         if (!count($results)) {
-            return null;
+            return;
         }
 
         foreach ($results as $key => &$result) {
