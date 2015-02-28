@@ -10,6 +10,7 @@ namespace Fruits {
     {
     }
 }
+
 namespace Model{
     use Fruits\Banana;
     use Fruits\RedGrape;
