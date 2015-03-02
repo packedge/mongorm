@@ -1,6 +1,7 @@
 <?php namespace Packedge\Mongorm\Eloquent;
 
 use League\Monga;
+use MongoCursorException;
 use Packedge\Mongorm\Query\Builder as QueryBuilder;
 
 /**
@@ -12,36 +13,51 @@ class Builder
     use ConvertableTrait;
 
     /**
+     * Holds the query to search with
+     *
      * @var array
      */
     protected $query = [];
 
     /**
+     * Holds the columns to return
+     *
      * @var array
      */
     protected $columns = [];
 
     /**
+     * Limit the results by this amount
+     * -1 means no limit
+     *
      * @var int
      */
     protected $limit = -1;
 
     /**
+     * Holds a QueryBuilder instance
+     *
      * @var QueryBuilder
      */
     protected $queryBuilder;
 
     /**
+     * Holds a Monga Connection instance
+     *
      * @var \League\Monga\Connection
      */
     protected $monga;
 
     /**
+     * Holds the current Model
+     *
      * @var Model
      */
     protected $model;
 
     /**
+     * Create a new instance of the builder
+     *
      * @param Monga $monga
      * @param QueryBuilder $queryBuilder
      */
@@ -55,6 +71,8 @@ class Builder
     }
 
     /**
+     * Get the current database connection
+     *
      * @return \League\Monga\Database
      */
     protected function getDatabase()
@@ -64,6 +82,8 @@ class Builder
     }
 
     /**
+     * Get the models collection
+     *
      * @return \League\Monga\Collection
      */
     protected function getCollection()
@@ -72,6 +92,8 @@ class Builder
     }
 
     /**
+     * Executes the query based on the current query & requested columns
+     *
      * @return mixed
      */
     protected function doQuery()
@@ -80,6 +102,8 @@ class Builder
     }
 
     /**
+     * Sets the builders' model
+     *
      * @param CoreModel $model
      */
     public function setModel(CoreModel $model)
@@ -88,6 +112,8 @@ class Builder
     }
 
     /**
+     * Gets the builders' model
+     *
      * @return Model
      */
     public function getModel()
@@ -96,6 +122,8 @@ class Builder
     }
 
     /**
+     * Get the first result
+     *
      * @param array $columns
      * @return Collection|null
      */
@@ -117,6 +145,8 @@ class Builder
     }
 
     /**
+     * Add a search term to the query
+     *
      * @param string $column
      * @param string|null $operator
      * @param string|null $value
@@ -131,10 +161,12 @@ class Builder
     }
 
     /**
-     * @param array $query
+     * Add a raw mongo search term to the query
+     *
+     * @param $query
      * @return $this
      */
-    public function whereRaw(array $query)
+    public function whereRaw($query)
     {
         $this->query = $query;
 
@@ -142,6 +174,8 @@ class Builder
     }
 
     /**
+     * Select a set of columns
+     *
      * @param array $columns
      * @return $this
      */
@@ -161,6 +195,8 @@ class Builder
     }
 
     /**
+     * Get the results and format them
+     *
      * @return Collection|null
      */
     public function get()
@@ -186,6 +222,8 @@ class Builder
     }
 
     /**
+     * Limit the amount of documents returned
+     *
      * @param int $amount
      * @return $this
      */
@@ -197,6 +235,8 @@ class Builder
     }
 
     /**
+     * Count the returned documents
+     *
      * @return mixed
      */
     public function count()
@@ -204,16 +244,39 @@ class Builder
         return $this->doQuery()->count();
     }
 
+    /**
+     * Insert data into the collection
+     *
+     * @param array $data
+     * @return bool
+     * @throws MongoCursorException
+     * @throws \Exception
+     */
     public function insert(array $data)
     {
         return $this->getCollection()->insert($data);
     }
 
+    /**
+     * Update existing documents from the collection
+     *
+     * @param array $data
+     * @return bool
+     * @throws MongoCursorException
+     * @throws \Exception
+     */
     public function update(array $data)
     {
         return $this->getCollection()->update($data, $this->query);
     }
 
+    /**
+     *
+     * Delete documents from the collection
+     * @return mixed
+     * @throws MongoCursorException
+     * @throws \Exception
+     */
     public function delete()
     {
         return $this->getCollection()->remove($this->query);
