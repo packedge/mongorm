@@ -173,6 +173,24 @@ class Builder
         return $this;
     }
 
+    public function orWhere($column, $operator = null, $value = null)
+    {
+        // TODO: fix up the other wheres to work as expected with this
+        $part = $this->queryBuilder->parse($column, $operator, $value);
+
+        if (!array_key_exists('$or', $this->query)) {
+            $this->query = [
+                '$or' => [
+                    ['$and' => $this->query]
+                ]
+            ];
+        }
+
+        $this->query['$or'][] = $part;
+
+        return $this;
+    }
+
     /**
      * Select a set of columns
      *
