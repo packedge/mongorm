@@ -168,7 +168,7 @@ class Builder
      */
     public function whereRaw($query)
     {
-        $this->query = $query;
+        $this->query = array_merge($this->query, $query);
 
         return $this;
     }
