@@ -248,9 +248,9 @@ class Builder
      * Insert data into the collection
      *
      * @param array $data
-     * @return bool
      * @throws MongoCursorException
      * @throws \Exception
+     * @return bool
      */
     public function insert(array $data)
     {
@@ -261,9 +261,9 @@ class Builder
      * Update existing documents from the collection
      *
      * @param array $data
-     * @return bool
      * @throws MongoCursorException
      * @throws \Exception
+     * @return bool
      */
     public function update(array $data)
     {
@@ -273,9 +273,9 @@ class Builder
     /**
      *
      * Delete documents from the collection
-     * @return mixed
      * @throws MongoCursorException
      * @throws \Exception
+     * @return mixed
      */
     public function delete()
     {
