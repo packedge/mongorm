@@ -285,7 +285,7 @@ class Builder
      */
     public function update(array $data)
     {
-        return $this->getCollection()->update($data, $this->query);
+        return $this->getCollection()->update($data, $this->query, ['multiple' => true]);
     }
 
     /**
@@ -297,6 +297,6 @@ class Builder
      */
     public function delete()
     {
-        return $this->getCollection()->remove($this->query);
+        return $this->getCollection()->remove($this->query, ['multiple' => true]);
     }
 }
