@@ -61,7 +61,7 @@ class Builder
      * @param Monga $monga
      * @param QueryBuilder $queryBuilder
      */
-    public function __construct(Monga $monga = null, QueryBuilder $queryBuilder = null)
+    public function __construct( Monga $monga = null, QueryBuilder $queryBuilder = null )
     {
         $monga = $monga ?: new Monga;
         $this->monga = $monga->connection();
@@ -78,7 +78,7 @@ class Builder
     protected function getDatabase()
     {
         // TODO: load from env/config
-        return $this->monga->database('example');
+        return $this->monga->database( 'example' );
     }
 
     /**
@@ -88,7 +88,7 @@ class Builder
      */
     protected function getCollection()
     {
-        return $this->getDatabase()->collection($this->model->getCollectionName());
+        return $this->getDatabase()->collection( $this->model->getCollectionName() );
     }
 
     /**
@@ -98,7 +98,7 @@ class Builder
      */
     protected function doQuery()
     {
-        return $this->getCollection()->find($this->query, $this->columns);
+        return $this->getCollection()->find( $this->query, $this->columns );
     }
 
     /**
@@ -106,7 +106,7 @@ class Builder
      *
      * @param CoreModel $model
      */
-    public function setModel(CoreModel $model)
+    public function setModel( CoreModel $model )
     {
         $this->model = $model;
     }
@@ -127,21 +127,23 @@ class Builder
      * @param array $columns
      * @return Collection|null
      */
-    public function first($columns = [])
+    public function first( $columns = [] )
     {
-        if (!empty($columns)) {
-            $this->select($columns);
+        if (!empty($columns))
+        {
+            $this->select( $columns );
         }
 
-        $result = $this->getCollection()->findOne($this->query, $this->columns);
+        $result = $this->getCollection()->findOne( $this->query, $this->columns );
 
-        if (is_null($result)) {
+        if (is_null( $result ))
+        {
             return;
         }
 
-        $result = $this->getStandardisedAttribute([$result], 0);
+        $result = $this->getStandardisedAttribute( [$result], 0 );
 
-        return Collection::make($result);
+        return Collection::make( $result );
     }
 
     /**
@@ -152,33 +154,34 @@ class Builder
      * @param string|null $value
      * @return $this
      */
-    public function where($column, $operator = null, $value = null)
+    public function where( $column, $operator = null, $value = null )
     {
-        $part = $this->queryBuilder->parse($column, $operator, $value);
-        $this->query = array_merge($this->query, $part);
+        $part = $this->queryBuilder->parse( $column, $operator, $value );
+        $this->query = array_merge( $this->query, $part );
 
         return $this;
     }
 
     /**
-     * Add a raw mongo search term to the query
+     * Manually set the query
      *
      * @param $query
      * @return $this
      */
-    public function whereRaw($query)
+    public function whereRaw( $query )
     {
-        $this->query = array_merge($this->query, $query);
+        $this->query = $query;
 
         return $this;
     }
 
-    public function orWhere($column, $operator = null, $value = null)
+    public function orWhere( $column, $operator = null, $value = null )
     {
         // TODO: fix up the other wheres to work as expected with this
-        $part = $this->queryBuilder->parse($column, $operator, $value);
+        $part = $this->queryBuilder->parse( $column, $operator, $value );
 
-        if (!array_key_exists('$or', $this->query)) {
+        if (!array_key_exists( '$or', $this->query ))
+        {
             $this->query = [
                 '$or' => [
                     ['$and' => $this->query]
@@ -197,15 +200,17 @@ class Builder
      * @param array $columns
      * @return $this
      */
-    public function select(array $columns)
+    public function select( array $columns )
     {
-        if (empty($columns) || $columns[0] === '*') {
+        if (empty($columns) || $columns[0] === '*')
+        {
             $this->columns = [];
 
             return $this;
         }
 
-        foreach ($columns as $column) {
+        foreach ($columns as $column)
+        {
             $this->columns[$column] = true;
         }
 
@@ -222,21 +227,24 @@ class Builder
         // TODO: use pagination etc.
         $results = $this->doQuery();
 
-        if ($this->limit !== -1) {
-            $results->limit($this->limit);
+        if ($this->limit !== -1)
+        {
+            $results->limit( $this->limit );
         }
 
         $results = $results->toArray();
 
-        if (!count($results)) {
+        if (!count( $results ))
+        {
             return;
         }
 
-        foreach ($results as $key => &$result) {
-            $result = $this->getStandardisedAttribute($results, $key);
+        foreach ($results as $key => &$result)
+        {
+            $result = $this->getStandardisedAttribute( $results, $key );
         }
 
-        return Collection::make($results);
+        return Collection::make( $results );
     }
 
     /**
@@ -245,7 +253,7 @@ class Builder
      * @param int $amount
      * @return $this
      */
-    public function take($amount)
+    public function take( $amount )
     {
         $this->limit = $amount;
 
@@ -270,9 +278,9 @@ class Builder
      * @throws \Exception
      * @return bool
      */
-    public function insert(array $data)
+    public function insert( array $data )
     {
-        return $this->getCollection()->insert($data);
+        return $this->getCollection()->insert( $data );
     }
 
     /**
@@ -283,9 +291,9 @@ class Builder
      * @throws \Exception
      * @return bool
      */
-    public function update(array $data)
+    public function update( array $data )
     {
-        return $this->getCollection()->update($data, $this->query, ['multiple' => true]);
+        return $this->getCollection()->update( $data, $this->query, ['multiple' => true] );
     }
 
     /**
@@ -297,6 +305,6 @@ class Builder
      */
     public function delete()
     {
-        return $this->getCollection()->remove($this->query, ['multiple' => true]);
+        return $this->getCollection()->remove( $this->query, ['multiple' => true] );
     }
 }
