@@ -17,6 +17,7 @@ class Builder
      *
      * @var array
      */
+    // TODO: don't build the query on the fly, store actions here
     protected $query = [];
 
     /**
