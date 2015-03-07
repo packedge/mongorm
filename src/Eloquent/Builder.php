@@ -161,22 +161,7 @@ class Builder
 
         // TODO: add proper tests for this since I'm 99% sure this won't work properly, if at all
         // aka refactor!
-        if (array_key_exists( '$or', $this->query ))
-        {
-            $last = count( $this->query['$or'] ) - 1;
-
-            if (array_key_exists( '$and', $this->query['$or'][$last] ))
-            {
-                $this->query['$or'][$last]['$and'][] = $part;
-            } else
-            {
-                $this->query['$or'][$last]['$and'] = array_merge( $this->query['$or'][$last], $part );
-            }
-        } else
-        {
-            $this->query = array_merge( $this->query, $part );
-        }
-
+        $this->query = array_merge( $this->query, $part );
 
         return $this;
     }
