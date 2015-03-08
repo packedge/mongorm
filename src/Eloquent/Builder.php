@@ -17,7 +17,6 @@ class Builder
      *
      * @var array
      */
-    // TODO: don't build the query on the fly, store actions here
     protected $query = [];
 
     /**
@@ -99,7 +98,15 @@ class Builder
      */
     protected function doQuery()
     {
-        return $this->getCollection()->find( $this->query, $this->columns );
+        if (count( $this->query ) === 1)
+        {
+            $query = $this->query[0];
+        } else
+        {
+            $query = ['$or' => $this->query];
+        }
+
+        return $this->getCollection()->find( $query, $this->columns );
     }
 
     /**
@@ -159,9 +166,8 @@ class Builder
     {
         $part = $this->queryBuilder->parse( $column, $operator, $value );
 
-        // TODO: add proper tests for this since I'm 99% sure this won't work properly, if at all
-        // aka refactor!
-        $this->query = array_merge( $this->query, $part );
+        $position = $this->getQueryPosition();
+        $this->query[$position] = array_merge( $this->query[$position], $part );
 
         return $this;
     }
@@ -183,16 +189,7 @@ class Builder
     {
         $part = $this->queryBuilder->parse( $column, $operator, $value );
 
-        if (!array_key_exists( '$or', $this->query ))
-        {
-            $this->query = [
-                '$or' => [
-                    ['$and' => $this->query]
-                ]
-            ];
-        }
-
-        $this->query['$or'][] = $part;
+        $this->query[count( $this->query )] = $part;
 
         return $this;
     }
@@ -309,5 +306,17 @@ class Builder
     public function delete()
     {
         return $this->getCollection()->remove( $this->query, ['multiple' => true] );
+    }
+
+    private function getQueryPosition()
+    {
+        $position = count( $this->query );
+
+        if ($position === 0)
+        {
+            return $position;
+        }
+
+        return $position - 1;
     }
 }
