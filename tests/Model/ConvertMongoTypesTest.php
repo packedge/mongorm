@@ -13,7 +13,7 @@ class Sample
     use ConvertableTrait;
 }
 
-class ConvertMongoTypesTest extends \PHPUnit_Framework_TestCase
+class ConvertMongoTypesTest extends \TestCase
 {
     /**
      * @var Sample

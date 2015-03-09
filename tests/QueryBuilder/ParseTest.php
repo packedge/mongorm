@@ -2,7 +2,7 @@
 
 use Packedge\Mongorm\Query\Builder as QueryBuilder;
 
-class ParseTest extends \PHPUnit_Framework_TestCase
+class ParseTest extends \TestCase
 {
     /**
      * @var QueryBuilder

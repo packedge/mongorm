@@ -3,7 +3,7 @@
 use Mockery as m;
 use Packedge\Mongorm\Eloquent\Builder;
 
-class CountTest extends \PHPUnit_Framework_TestCase
+class CountTest extends \TestCase
 {
     protected function initaliseBuilder($data, $query = [])
     {
@@ -34,11 +34,6 @@ class CountTest extends \PHPUnit_Framework_TestCase
         $builder->setModel($model);
 
         return $builder;
-    }
-
-    public function tearDown()
-    {
-        m::close();
     }
 
     /**

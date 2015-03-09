@@ -26,7 +26,7 @@ namespace Model{
     }
 
 
-    class CollectionNamingTest extends \PHPUnit_Framework_TestCase
+    class CollectionNamingTest extends \TestCase
     {
         /** @test */
         public function it_allows_you_to_set_the_collection_name()

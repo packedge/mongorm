@@ -8,7 +8,7 @@ class Watch extends Model
     protected $dates = ['data'];
 }
 
-class ConvertDatesTest extends \PHPUnit_Framework_TestCase
+class ConvertDatesTest extends \TestCase
 {
     /**
      * @var Watch

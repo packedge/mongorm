@@ -18,7 +18,7 @@ class User extends Model
     ];
 }
 
-class CastingAttributesTest extends \PHPUnit_Framework_TestCase
+class CastingAttributesTest extends \TestCase
 {
     /**
      * @var User

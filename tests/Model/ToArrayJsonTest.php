@@ -6,7 +6,7 @@ class Pineapple extends Model
 {
 }
 
-class ToArrayJsonTest extends \PHPUnit_Framework_TestCase
+class ToArrayJsonTest extends \TestCase
 {
     protected $model;
 

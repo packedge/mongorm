@@ -10,7 +10,7 @@ class Dog extends Model
     }
 }
 
-class AttributeSettingTest extends \PHPUnit_Framework_TestCase
+class AttributeSettingTest extends \TestCase
 {
     /**
      * @var Dog

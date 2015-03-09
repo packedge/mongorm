@@ -3,7 +3,7 @@
 use Mockery as m;
 use Packedge\Mongorm\Eloquent\Builder;
 
-class GetTest extends \PHPUnit_Framework_TestCase
+class GetTest extends \TestCase
 {
     protected function initaliseBuilder($data, $limit = -1)
     {
@@ -35,11 +35,6 @@ class GetTest extends \PHPUnit_Framework_TestCase
         $builder->setModel($model);
 
         return $builder;
-    }
-
-    public function tearDown()
-    {
-        m::close();
     }
 
     /**

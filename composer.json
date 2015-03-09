@@ -16,6 +16,9 @@
             "Packedge\\Mongorm\\": "src"
         }
     },
+    "autoload-dev" : {
+        "files": [ "tests/TestCase.php"]
+    },
     "license": "MIT",
     "authors": [
         {

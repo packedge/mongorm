@@ -10,7 +10,7 @@ class Cat extends Model
     }
 }
 
-class AttributeGettingTest extends \PHPUnit_Framework_TestCase
+class AttributeGettingTest extends \TestCase
 {
     /**
      * @var Cat

@@ -1,6 +1,6 @@
 <?php namespace Model;
 
-class MassAssignmentTest extends \PHPUnit_Framework_TestCase
+class MassAssignmentTest extends \TestCase
 {
     /** @test */
     public function it_works()

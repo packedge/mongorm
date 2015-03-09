@@ -10,7 +10,7 @@ class Banana extends Model
     protected $primaryKey = 'identifier';
 }
 
-class PrimaryKeyTest extends \PHPUnit_Framework_TestCase
+class PrimaryKeyTest extends \TestCase
 {
     /**
      * @var Model
