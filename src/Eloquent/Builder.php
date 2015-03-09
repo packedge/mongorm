@@ -98,15 +98,7 @@ class Builder
      */
     protected function doQuery()
     {
-        if (count( $this->query ) === 1)
-        {
-            $query = $this->query[0];
-        } else
-        {
-            $query = ['$or' => $this->query];
-        }
-
-        return $this->getCollection()->find( $query, $this->columns );
+        return $this->getCollection()->find( $this->generateQueryString(), $this->columns );
     }
 
     /**
@@ -318,5 +310,35 @@ class Builder
         }
 
         return $position - 1;
+    }
+
+    public function generateQueryString()
+    {
+        $sectionsCount = count( $this->query );
+
+        if ($sectionsCount === 0)
+        {
+            return [];
+        }
+
+        if ($sectionsCount === 1)
+        {
+            return $this->query[0];
+        }
+
+        $sections = [];
+
+        foreach ($this->query as $section)
+        {
+            if (count( $section ) > 1)
+            {
+                $sections[] = ['$and' => $section];
+            } else
+            {
+                $sections[] = $section;
+            }
+        }
+
+        return ['$or' => $sections];
     }
 }
