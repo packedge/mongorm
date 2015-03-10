@@ -306,6 +306,8 @@ class Builder
 
         if ($position === 0)
         {
+            $this->query[0] = [];
+
             return $position;
         }
 
