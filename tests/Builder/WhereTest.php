@@ -161,4 +161,42 @@ class WhereTest extends \TestCase
         $this->assertEquals( 'Steve', $output['$or'][1]['$and']['first'] );
         $this->assertEquals( 'Mcqueen', $output['$or'][1]['$and']['last'] );
     }
+
+    /**
+     * @test
+     */
+    public function it_generates_a_query_with_multiple_section_and_mixed_parts()
+    {
+        $query = m::mock( QueryBuilder::class );
+        $query->shouldReceive( 'parse' )
+              ->once()
+              ->with( 'first', 'John', null )
+              ->andReturn( ['first' => 'John'] );
+        $query->shouldReceive( 'parse' )
+              ->once()
+              ->with( 'first', 'Steve', null )
+              ->andReturn( ['first' => 'Steve'] );
+        $query->shouldReceive( 'parse' )
+              ->once()
+              ->with( 'last', 'Mcqueen', null )
+              ->andReturn( ['last' => 'Mcqueen'] );
+
+        $this->initialiseBuilder( $query );
+        $this->builder->where( 'first', 'John' )
+                      ->orWhere( 'first', 'Steve' )
+                      ->where( 'last', 'Mcqueen' );
+        $output = $this->builder->generateQueryString();
+
+        $this->assertArrayHasKey( '$or', $output );
+        $this->assertArrayHasKey( 0, $output['$or'] );
+        $this->assertArrayHasKey( 1, $output['$or'] );
+        $this->assertArrayHasKey( 'first', $output['$or'][0] );
+        $this->assertArrayHasKey( '$and', $output['$or'][1] );
+        $this->assertArrayHasKey( 'first', $output['$or'][1]['$and'] );
+        $this->assertArrayHasKey( 'last', $output['$or'][1]['$and'] );
+
+        $this->assertEquals( 'John', $output['$or'][0]['first'] );
+        $this->assertEquals( 'Steve', $output['$or'][1]['$and']['first'] );
+        $this->assertEquals( 'Mcqueen', $output['$or'][1]['$and']['last'] );
+    }
 }
