@@ -2,6 +2,7 @@
     "name": "packedge/mongorm",
     "description": "A MongoDB Implementation for Eloquent",
     "require": {
+        "php": ">=5.5.0",
         "league/monga": "dev-master",
         "illuminate/support": "~5.0.0",
         "illuminate/container": "~5.0.0",

@@ -5,7 +5,7 @@ This package should allow you to work with Laravel's Eloquent ORM just like you 
 [![Build Status](https://img.shields.io/travis/packedge/mongorm.svg?branch=master&style=flat-square)](https://travis-ci.org/packedge/mongorm)
 [![Code Quality](https://img.shields.io/scrutinizer/g/packedge/mongorm.svg?branch=master&style=flat-square)](https://scrutinizer-ci.com/g/packedge/mongorm)
 [![Test Coverage](https://img.shields.io/scrutinizer/coverage/g/packedge/mongorm.svg?branch=master&style=flat-square)](https://scrutinizer-ci.com/g/packedge/mongorm)
-[![StyleCI](https://styleci.io/repos/30969027/shield)](https://styleci.io/repos/30969027)
+
 
 ##Package Development
 This package is still in development.
@@ -38,6 +38,7 @@ This package is still in development.
 - [ ] Model::find()
 - [ ] Model::findOrFail()
 - [ ] Model::where()
+- [ ] Model::orWhere()
 - [ ] Model::first()
 - [ ] Model::firstOrFail()
 - [ ] Saving
@@ -59,10 +60,10 @@ This package is still in development.
 - [ ] embeds many
 
 ####Advanced Relationships
-- [ ] has many through
-- [ ] polymorphic
-- [ ] many to many polymorphic
-- [ ] eager loading
+- [ ] Has Many through
+- [ ] Polymorphic
+- [ ] Many to Many Polymorphic
+- [ ] Eager loading
 
 ####Extra Features
 - [ ] Laravel validator support
