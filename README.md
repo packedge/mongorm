@@ -60,10 +60,10 @@ This package is still in development.
 - [ ] embeds many
 
 ####Advanced Relationships
-- [ ] has many through
-- [ ] polymorphic
-- [ ] many to many polymorphic
-- [ ] eager loading
+- [ ] Has Many through
+- [ ] Polymorphic
+- [ ] Many to Many Polymorphic
+- [ ] Eager loading
 
 ####Extra Features
 - [ ] Laravel validator support
