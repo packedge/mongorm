@@ -20,6 +20,13 @@ class Builder
     protected $query = [];
 
     /**
+     * Has the user set the query manually
+     *
+     * @var bool
+     */
+    protected $isRawQuery = false;
+
+    /**
      * Holds the columns to return
      *
      * @var array
@@ -173,6 +180,7 @@ class Builder
     public function whereRaw( $query )
     {
         $this->query = $query;
+        $this->isRawQuery = true;
 
         return $this;
     }
@@ -316,6 +324,11 @@ class Builder
 
     public function generateQueryString()
     {
+        if ($this->isRawQuery)
+        {
+            return $this->query;
+        }
+
         $sectionsCount = count( $this->query );
 
         if ($sectionsCount === 0)
