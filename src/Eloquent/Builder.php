@@ -163,6 +163,11 @@ class Builder
      */
     public function where( $column, $operator = null, $value = null )
     {
+        if ($this->isRawQuery)
+        {
+            return $this;
+        }
+
         $part = $this->queryBuilder->parse( $column, $operator, $value );
 
         $position = $this->getQueryPosition();
@@ -187,6 +192,11 @@ class Builder
 
     public function orWhere( $column, $operator = null, $value = null )
     {
+        if ($this->isRawQuery)
+        {
+            return $this;
+        }
+
         $part = $this->queryBuilder->parse( $column, $operator, $value );
 
         $this->query[count( $this->query )] = $part;
