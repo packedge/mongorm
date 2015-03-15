@@ -141,7 +141,7 @@ class Builder
             $this->select( $columns );
         }
 
-        $result = $this->getCollection()->findOne( $this->query, $this->columns );
+        $result = $this->getCollection()->findOne( $this->generateQueryString(), $this->columns );
 
         if (is_null( $result ))
         {
@@ -303,7 +303,7 @@ class Builder
      */
     public function update( array $data )
     {
-        return $this->getCollection()->update( $data, $this->query, ['multiple' => true] );
+        return $this->getCollection()->update( $data, $this->generateQueryString(), ['multiple' => true] );
     }
 
     /**
@@ -315,7 +315,7 @@ class Builder
      */
     public function delete()
     {
-        return $this->getCollection()->remove( $this->query, ['multiple' => true] );
+        return $this->getCollection()->remove( $this->generateQueryString(), ['multiple' => true] );
     }
 
     private function getQueryPosition()
