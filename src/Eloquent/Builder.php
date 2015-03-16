@@ -63,6 +63,13 @@ class Builder
     protected $model;
 
     /**
+     * Skip this amount of results
+     *
+     * @var int
+     */
+    protected $skip = 0;
+
+    /**
      * Create a new instance of the builder
      *
      * @param Monga $monga
@@ -105,7 +112,7 @@ class Builder
      */
     protected function doQuery()
     {
-        return $this->getCollection()->find( $this->generateQueryString(), $this->columns );
+        return $this->getCollection()->find( $this->generateQueryString(), $this->columns )->skip( $this->skip );
     }
 
     /**
@@ -266,6 +273,13 @@ class Builder
     public function take( $amount )
     {
         $this->limit = $amount;
+
+        return $this;
+    }
+
+    public function skip( $amount )
+    {
+        $this->skip = $amount;
 
         return $this;
     }

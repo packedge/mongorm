@@ -17,6 +17,8 @@ class CountTest extends \TestCase
 
         $queryBuilder->shouldReceive('parse', ['email', null, null])
             ->andReturn(['email' => ['$exists' => true]]);
+        $cursor->shouldReceive('skip')
+            ->andReturnSelf();
         $cursor->shouldReceive('count')
             ->andReturn($data);
         $collection->shouldReceive('find', [$query, []])

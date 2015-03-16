@@ -16,6 +16,8 @@ class GetTest extends \TestCase
 
         $cursor->shouldReceive('toArray')
             ->andReturn($data);
+        $cursor->shouldReceive('skip')
+               ->andReturnSelf();
         if ($limit > -1) {
             $cursor->shouldReceive('limit', $limit)
                 ->andReturn($cursor);
