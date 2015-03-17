@@ -199,4 +199,18 @@ class WhereTest extends \TestCase
         $this->assertEquals( 'Steve', $output['$or'][1]['$and']['first'] );
         $this->assertEquals( 'Mcqueen', $output['$or'][1]['$and']['last'] );
     }
+
+    /**
+     * @test
+     */
+    public function it_passes_a_query_through_with_whereRaw()
+    {
+        $this->initialiseBuilder();
+        $this->builder->whereRaw( ['first' => 'John'] );
+        $output = $this->builder->generateQueryString();
+
+        $this->assertArrayHasKey( 'first', $output );
+
+        $this->assertEquals( 'John', $output['first'] );
+    }
 }
