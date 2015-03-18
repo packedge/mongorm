@@ -213,4 +213,29 @@ class WhereTest extends \TestCase
 
         $this->assertEquals( 'John', $output['first'] );
     }
+
+    /**
+     * @test
+     */
+    public function it_passes_a_query_through_with_whereRaw_and_where()
+    {
+        $query = m::mock( QueryBuilder::class );
+        $query->shouldReceive( 'parse' )
+              ->once()
+              ->with( 'age', '>', 20 )
+              ->andReturn( ['age' => ['$gt', 20]] );
+        $query->shouldReceive( 'parse' )
+              ->never()
+              ->with( 'last', 'Smith' );
+
+        $this->initialiseBuilder( $query );
+        $this->builder->where( 'age', '>', 20 )
+                      ->whereRaw( ['first' => 'John'] )
+                      ->orWhere( 'last', 'Smith' );
+        $output = $this->builder->generateQueryString();
+
+        $this->assertArrayHasKey( 'first', $output );
+
+        $this->assertEquals( 'John', $output['first'] );
+    }
 }
