@@ -96,4 +96,16 @@ class FirstTest extends \TestCase
         $this->assertEquals('Fred', $first['first']);
         $this->assertCount(1, $first);
     }
+
+    /**
+     * @test
+     */
+    public function it_gets_the_first_item_with_no_result()
+    {
+        $builder = $this->initaliseBuilder([]);
+
+        $first = $builder->first();
+
+        $this->assertNull($first);
+    }
 }

@@ -76,4 +76,16 @@ class GetTest extends \TestCase
 
         $this->assertCount(2, $results);
     }
+
+    /**
+     * @test
+     */
+    public function it_gets_the_results_with_no_results()
+    {
+        $builder = $this->initaliseBuilder([]);
+
+        $results = $builder->get();
+
+        $this->assertNull($results);
+    }
 }

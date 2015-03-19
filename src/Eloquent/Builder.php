@@ -150,7 +150,7 @@ class Builder
 
         $result = $this->getCollection()->findOne( $this->generateQueryString(), $this->columns );
 
-        if (is_null( $result ))
+        if (!count( $result ))
         {
             return;
         }
