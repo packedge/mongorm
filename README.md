@@ -39,6 +39,7 @@ This package is still in development.
 - [ ] Model::findOrFail()
 - [ ] Model::where()
 - [ ] Model::orWhere()
+- [ ] Model::whereRaw()
 - [ ] Model::first()
 - [ ] Model::firstOrFail()
 - [ ] Saving
