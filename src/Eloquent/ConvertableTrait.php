@@ -67,7 +67,7 @@ trait ConvertableTrait
      */
     public function convertMongoDate(MongoDate $mongoDate)
     {
-        return new DateTime($mongoDate->sec);
+        return (new DateTime)->setTimestamp($mongoDate->sec);
     }
 
     /**
