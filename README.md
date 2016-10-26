@@ -1,3 +1,5 @@
+## Unmaintained: This package is no longer under active development
+
 # Mongorm
 A MongoDB Implementation for Eloquent.
 This package should allow you to work with Laravel's Eloquent ORM just like you always do, yet with a MongoDB database being used.
